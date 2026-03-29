@@ -1,0 +1,51 @@
+CRITICAL - 2026-03-12 22:53:50 --> ArgumentCountError: Too few arguments to function CodeIgniter\CLI\BaseCommand::__construct(), 0 passed in C:\ocanada\app\Commands\CloseVisitsCommand.php on line 24 and exactly 2 expected
+[Method: CLI, Route: serve]
+in SYSTEMPATH\CLI\BaseCommand.php on line 93.
+ 1 APPPATH\Commands\CloseVisitsCommand.php(24): CodeIgniter\CLI\BaseCommand->__construct()
+ 2 SYSTEMPATH\CLI\Commands.php(130): App\Commands\CloseVisitsCommand->__construct(Object(CodeIgniter\Log\Logger), Object(CodeIgniter\CLI\Commands))
+ 3 SYSTEMPATH\CLI\Commands.php(51): CodeIgniter\CLI\Commands->discoverCommands()
+ 4 SYSTEMPATH\Config\Services.php(178): CodeIgniter\CLI\Commands->__construct()
+ 5 SYSTEMPATH\Config\BaseService.php(325): CodeIgniter\Config\Services::commands(false)
+ 6 SYSTEMPATH\Config\BaseService.php(264): CodeIgniter\Config\BaseService::__callStatic('commands', [...])
+ 7 SYSTEMPATH\Config\Services.php(175): CodeIgniter\Config\BaseService::getSharedInstance('commands')
+ 8 SYSTEMPATH\Config\BaseService.php(334): CodeIgniter\Config\Services::commands()
+ 9 SYSTEMPATH\Config\BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic('commands', [])
+10 SYSTEMPATH\Common.php(1078): CodeIgniter\Config\BaseService::get('commands')
+11 SYSTEMPATH\CLI\Console.php(47): service('commands')
+12 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+13 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+14 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-03-12 22:56:42 --> ErrorException: Type of App\Controllers\BaseController::$helpers must not be defined (as in class CodeIgniter\Controller)
+[Method: GET, Route: /]
+in APPPATH\Controllers\BaseController.php on line 17.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-03-12 23:01:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:04:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:04:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-12 23:04:57 --> Error: Call to undefined method App\Controllers\AuthController::isLoggedIn()
+[Method: GET, Route: login]
+in APPPATH\Controllers\AuthController.php on line 30.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->login()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('C:\\ocanada\\public\\index.php')
+DEBUG - 2026-03-12 23:06:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-12 23:06:49 --> Error: Call to undefined method App\Controllers\AuthController::isLoggedIn()
+[Method: GET, Route: login]
+in APPPATH\Controllers\AuthController.php on line 30.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->login()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('C:\\ocanada\\public\\index.php')
+DEBUG - 2026-03-12 23:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:11:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:11:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:11:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-12 23:11:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

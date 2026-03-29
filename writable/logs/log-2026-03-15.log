@@ -1,0 +1,202 @@
+DEBUG - 2026-03-15 01:22:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 01:22:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-15 22:46:03 --> CodeIgniter\Security\Exceptions\SecurityException: The action you requested is not allowed.
+[Method: POST, Route: auth/attempt-login]
+in SYSTEMPATH\Security\Security.php on line 263.
+ 1 SYSTEMPATH\Security\Security.php(263): CodeIgniter\Security\Exceptions\SecurityException::forDisallowedAction()
+ 2 SYSTEMPATH\Filters\CSRF.php(52): CodeIgniter\Security\Security->verify(Object(CodeIgniter\HTTP\IncomingRequest))
+ 3 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 4 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 5 SYSTEMPATH\CodeIgniter.php(465): CodeIgniter\Filters\Filters->run('auth/attempt-login', 'before')
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-15 22:49:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:49:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-03-15 22:49:49 --> CSRF token verified.
+DEBUG - 2026-03-15 22:49:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:49:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:51:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:52:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:52:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:52:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:52:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-15 22:52:36 --> Column 'statut' in field list is ambiguous
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= :DATE(presences.date_pointage):
+AND DATE(presences.date_pointage) <= :DATE(presences.date_pointage).1:
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', [...], false)
+ 5 APPPATH\Controllers\Admin\PresencesController.php(311): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PresencesController->statistics()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PresencesController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-15 22:52:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'statut' in field list is ambiguous
+[Method: GET, Route: admin/presences/statistics]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= :DATE(presences.date_pointage):
+AND DATE(presences.date_pointage) <= :DATE(presences.date_pointage).1:
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', [...], false)
+ 2 APPPATH\Controllers\Admin\PresencesController.php(311): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PresencesController->statistics()
+ 4 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PresencesController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-15 22:52:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'statut' in field list is ambiguous
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= :DATE(presences.date_pointage):
+AND DATE(presences.date_pointage) <= :DATE(presences.date_pointage).1:
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', [...], false)
+ 4 APPPATH\Controllers\Admin\PresencesController.php(311): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PresencesController->statistics()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PresencesController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-15 22:52:36 --> [Caused by] mysqli_sql_exception: Column 'statut' in field list is ambiguous
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= \'2026-02-13\'
+AND DATE(presences.date_pointage) <= \'2026-03-15\'
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `employe_id`, `employes`.`nom`, `employes`.`prenom`, `employes`.`matricule`, COUNT(*) as total, SUM(CASE WHEN statut = "present" THEN 1 ELSE 0 END) as presents, SUM(CASE WHEN statut = "retard" THEN 1 ELSE 0 END) as retards, SUM(CASE WHEN statut = "absent" THEN 1 ELSE 0 END) as absents
+FROM `presences`
+LEFT JOIN `employes` ON `employes`.`id` = `presences`.`employe_id`
+WHERE DATE(presences.date_pointage) >= :DATE(presences.date_pointage):
+AND DATE(presences.date_pointage) <= :DATE(presences.date_pointage).1:
+GROUP BY `employe_id`
+ORDER BY `retards` DESC
+ LIMIT 20', [...], false)
+ 5 APPPATH\Controllers\Admin\PresencesController.php(311): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PresencesController->statistics()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PresencesController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-15 22:52:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-15 22:52:51 --> Error: Cannot call constructor
+[Method: GET, Route: admin/rapports]
+in APPPATH\Controllers\Admin\ReportsController.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\ReportsController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-15 22:53:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:53:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:53:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:53:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:53:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-15 22:53:55 --> Error: Cannot call constructor
+[Method: GET, Route: admin/visitors]
+in APPPATH\Controllers\Admin\VisitorController.php on line 17.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\VisitorController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-15 22:53:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:54:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-15 22:54:53 --> Error: Cannot call constructor
+[Method: GET, Route: admin/documents]
+in APPPATH\Controllers\Admin\DocumentsController.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\DocumentsController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-15 22:54:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-15 22:55:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

@@ -1,0 +1,1347 @@
+DEBUG - 2026-03-14 01:58:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 01:58:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 01:59:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 01:59:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:06:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:06:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:07:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:17:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:19:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 02:34:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 02:38:50 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'ocanada_db', 3306, '', 0)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Projets\ocanada\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#4 D:\Projets\ocanada\system\Commands\Database\ShowTableInfo.php(121): CodeIgniter\Database\BaseConnection->listTables()
+#5 D:\Projets\ocanada\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\ShowTableInfo->run(Array)
+#6 D:\Projets\ocanada\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:table', Array)
+#7 D:\Projets\ocanada\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#8 D:\Projets\ocanada\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#9 D:\Projets\ocanada\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#10 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Projets\ocanada\system\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FRO...')
+#3 D:\Projets\ocanada\system\Commands\Database\ShowTableInfo.php(121): CodeIgniter\Database\BaseConnection->listTables()
+#4 D:\Projets\ocanada\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\ShowTableInfo->run(Array)
+#5 D:\Projets\ocanada\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:table', Array)
+#6 D:\Projets\ocanada\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#7 D:\Projets\ocanada\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#8 D:\Projets\ocanada\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#9 {main}
+CRITICAL - 2026-03-14 02:38:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ocanada_db'
+[Method: CLI, Route: db:table/utilisateurs]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseConnection.php(1565): CodeIgniter\Database\BaseConnection->query('SHOW TABLES FROM `ocanada_db`')
+ 3 SYSTEMPATH\Commands\Database\ShowTableInfo.php(121): CodeIgniter\Database\BaseConnection->listTables()
+ 4 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\ShowTableInfo->run([...])
+ 5 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:table', [...])
+ 6 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+ 7 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 8 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+INFO - 2026-03-14 02:48:23 --> CSRF token verified.
+DEBUG - 2026-03-14 02:48:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 02:48:23 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'ocanada_db', 3306, '', 0)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Projets\ocanada\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\Projets\ocanada\system\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Projets\ocanada\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 D:\Projets\ocanada\app\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+#7 D:\Projets\ocanada\system\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+#8 D:\Projets\ocanada\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 D:\Projets\ocanada\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\Projets\ocanada\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Projets\ocanada\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\Projets\ocanada\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\Projets\ocanada\system\rewrite.php(44): require_once('D:\\Projets\\ocan...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Projets\ocanada\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\Projets\ocanada\system\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\Projets\ocanada\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#5 D:\Projets\ocanada\app\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+#6 D:\Projets\ocanada\system\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+#7 D:\Projets\ocanada\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#8 D:\Projets\ocanada\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Projets\ocanada\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 D:\Projets\ocanada\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Projets\ocanada\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Projets\ocanada\system\rewrite.php(44): require_once('D:\\Projets\\ocan...')
+#13 {main}
+CRITICAL - 2026-03-14 02:48:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ocanada_db'
+[Method: POST, Route: auth/attempt-login]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `utilisateurs`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 02:49:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-03-14 02:49:21 --> CSRF token verified.
+DEBUG - 2026-03-14 02:49:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 02:49:21 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'ocanada_db', 3306, '', 0)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Projets\ocanada\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\Projets\ocanada\system\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\Projets\ocanada\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 D:\Projets\ocanada\app\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+#7 D:\Projets\ocanada\system\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+#8 D:\Projets\ocanada\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 D:\Projets\ocanada\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\Projets\ocanada\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 D:\Projets\ocanada\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 D:\Projets\ocanada\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 D:\Projets\ocanada\system\rewrite.php(44): require_once('D:\\Projets\\ocan...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Projets\ocanada\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 D:\Projets\ocanada\system\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\Projets\ocanada\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#5 D:\Projets\ocanada\app\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+#6 D:\Projets\ocanada\system\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+#7 D:\Projets\ocanada\system\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#8 D:\Projets\ocanada\system\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\Projets\ocanada\system\Boot.php(417): CodeIgniter\CodeIgniter->run()
+#10 D:\Projets\ocanada\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\Projets\ocanada\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 D:\Projets\ocanada\system\rewrite.php(44): require_once('D:\\Projets\\ocan...')
+#13 {main}
+CRITICAL - 2026-03-14 02:49:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Unknown database 'ocanada_db'
+[Method: POST, Route: auth/attempt-login]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(654): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `utilisateurs`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(296): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\AuthController.php(59): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+ERROR - 2026-03-14 02:50:09 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'ocanada_db', 3306, '', 0)
+#1 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\Projets\ocanada\system\Database\Database.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\Projets\ocanada\system\Database\Config.php(111): CodeIgniter\Database\Database->loadForge(Object(CodeIgniter\Database\MySQLi\Connection))
+#4 D:\Projets\ocanada\system\Commands\Database\CreateDatabase.php(136): CodeIgniter\Database\Config::forge()
+#5 D:\Projets\ocanada\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\CreateDatabase->run(Array)
+#6 D:\Projets\ocanada\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:create', Array)
+#7 D:\Projets\ocanada\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#8 D:\Projets\ocanada\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#9 D:\Projets\ocanada\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#10 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'ocanada_db' in D:\Projets\ocanada\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\Projets\ocanada\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\Projets\ocanada\system\Database\Database.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\Projets\ocanada\system\Database\Config.php(111): CodeIgniter\Database\Database->loadForge(Object(CodeIgniter\Database\MySQLi\Connection))
+#3 D:\Projets\ocanada\system\Commands\Database\CreateDatabase.php(136): CodeIgniter\Database\Config::forge()
+#4 D:\Projets\ocanada\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\CreateDatabase->run(Array)
+#5 D:\Projets\ocanada\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:create', Array)
+#6 D:\Projets\ocanada\system\Boot.php(442): CodeIgniter\CLI\Console->run()
+#7 D:\Projets\ocanada\system\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#8 D:\Projets\ocanada\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#9 {main}
+ERROR - 2026-03-14 02:50:25 --> Incorrect index name 'PRIMARY'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `PRIMARY` (`id`),
+	KEY `employe_id` (`employe_id`),
+	KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `PRIMARY` (`id`),
+	KEY `employe_id` (`employe_id`),
+	KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `PRIMARY` (`id`),
+	KEY `employe_id` (`employe_id`),
+	KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `PRIMARY` (`id`),
+	KEY `employe_id` (`employe_id`),
+	KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2025_03_12_130000_CreateSoldeCongesTable.php(73): CodeIgniter\Database\Forge->createTable('solde_conges')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateSoldeCongesTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-03-14 02:50:26 --> Table 'ocanada_db.config_systeme' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `config_systeme`
+WHERE `config_systeme`.`cle` = \'ip_kiosque_autorisees\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `config_systeme`
+WHERE `config_systeme`.`cle` = \'ip_kiosque_autorisees\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `config_systeme`
+WHERE `config_systeme`.`cle` = \'ip_kiosque_autorisees\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `config_systeme`
+WHERE `config_systeme`.`cle` = :config_systeme.cle:', [...], false)
+ 5 SYSTEMPATH\Model.php(193): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(614): CodeIgniter\Model->doFind(true, 'ip_kiosque_autorisees')
+ 7 APPPATH\Database\Seeds\InitialDataSeeder.php(38): CodeIgniter\BaseModel->find('ip_kiosque_autorisees')
+ 8 APPPATH\Database\Seeds\InitialDataSeeder.php(14): App\Database\Seeds\InitialDataSeeder->seedConfigSysteme()
+ 9 SYSTEMPATH\Database\Seeder.php(155): App\Database\Seeds\InitialDataSeeder->run()
+10 SYSTEMPATH\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Seeds\\InitialDataSeeder')
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-03-14 02:51:10 --> Can't create table `ocanada_db`.`solde_conges` (errno: 150 "Foreign key constraint is incorrectly formed")
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` BIGINT UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2025_03_12_130000_CreateSoldeCongesTable.php(73): CodeIgniter\Database\Forge->createTable('solde_conges')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateSoldeCongesTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-03-14 02:51:59 --> Can't create table `ocanada_db`.`solde_conges` (errno: 150 "Foreign key constraint is incorrectly formed")
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` INT(10) UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` INT(10) UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` INT(10) UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `solde_conges` (
+	`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`employe_id` INT(10) UNSIGNED NOT NULL,
+	`annee` YEAR NOT NULL COMMENT \'Year for which the balance is calculated\',
+	`solde_initial` DECIMAL NOT NULL COMMENT \'Initial balance based on OHADA rules (ancienneté, prorata)\',
+	`solde_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Sum of approved leave days\',
+	`solde_restant` DECIMAL NOT NULL DEFAULT 0 COMMENT \'solde_initial - solde_utilise\',
+	`congd_maternite_utilise` DECIMAL NOT NULL DEFAULT 0 COMMENT \'Maternity leave days (not deducted from balance)\',
+	`notes` TEXT NULL COMMENT \'Admin notes on balance adjustments\',
+	`date_creation` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`date_modification` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT `pk_solde_conges` PRIMARY KEY(`id`),
+	CONSTRAINT `solde_conges_employe_id_foreign` FOREIGN KEY (`employe_id`) REFERENCES `employes`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	KEY `employe_id` (`employe_id`),
+	UNIQUE KEY `uk_employe_annee` (`employe_id`, `annee`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2025_03_12_130000_CreateSoldeCongesTable.php(74): CodeIgniter\Database\Forge->createTable('solde_conges')
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateSoldeCongesTable->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2026-03-14 02:54:47 --> Duplicate key name 'badge_id'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('CREATE TABLE `visiteurs` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(50) NOT NULL,
+	`prenom` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NULL,
+	`telephone` VARCHAR(20) NULL,
+	`entreprise` VARCHAR(100) NULL,
+	`motif` VARCHAR(255) NOT NULL,
+	`personne_a_voir` VARCHAR(100) NOT NULL,
+	`heure_arrivee` TIME NOT NULL,
+	`heure_depart` TIME NULL,
+	`badge_id` VARCHAR(50) NOT NULL UNIQUE,
+	`statut` ENUM(\'present\',\'departi\') NOT NULL DEFAULT \'present\',
+	`commentaire` VARCHAR(255) NULL,
+	`date_creation` DATETIME NOT NULL,
+	`date_modification` DATETIME NULL,
+	CONSTRAINT `pk_visiteurs` PRIMARY KEY(`id`),
+	KEY `statut_date_creation` (`statut`, `date_creation`),
+	KEY `badge_id` (`badge_id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `visiteurs` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(50) NOT NULL,
+	`prenom` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NULL,
+	`telephone` VARCHAR(20) NULL,
+	`entreprise` VARCHAR(100) NULL,
+	`motif` VARCHAR(255) NOT NULL,
+	`personne_a_voir` VARCHAR(100) NOT NULL,
+	`heure_arrivee` TIME NOT NULL,
+	`heure_depart` TIME NULL,
+	`badge_id` VARCHAR(50) NOT NULL UNIQUE,
+	`statut` ENUM(\'present\',\'departi\') NOT NULL DEFAULT \'present\',
+	`commentaire` VARCHAR(255) NULL,
+	`date_creation` DATETIME NOT NULL,
+	`date_modification` DATETIME NULL,
+	CONSTRAINT `pk_visiteurs` PRIMARY KEY(`id`),
+	KEY `statut_date_creation` (`statut`, `date_creation`),
+	KEY `badge_id` (`badge_id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `visiteurs` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(50) NOT NULL,
+	`prenom` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NULL,
+	`telephone` VARCHAR(20) NULL,
+	`entreprise` VARCHAR(100) NULL,
+	`motif` VARCHAR(255) NOT NULL,
+	`personne_a_voir` VARCHAR(100) NOT NULL,
+	`heure_arrivee` TIME NOT NULL,
+	`heure_depart` TIME NULL,
+	`badge_id` VARCHAR(50) NOT NULL UNIQUE,
+	`statut` ENUM(\'present\',\'departi\') NOT NULL DEFAULT \'present\',
+	`commentaire` VARCHAR(255) NULL,
+	`date_creation` DATETIME NOT NULL,
+	`date_modification` DATETIME NULL,
+	CONSTRAINT `pk_visiteurs` PRIMARY KEY(`id`),
+	KEY `statut_date_creation` (`statut`, `date_creation`),
+	KEY `badge_id` (`badge_id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 4 SYSTEMPATH\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `visiteurs` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(50) NOT NULL,
+	`prenom` VARCHAR(50) NOT NULL,
+	`email` VARCHAR(100) NULL,
+	`telephone` VARCHAR(20) NULL,
+	`entreprise` VARCHAR(100) NULL,
+	`motif` VARCHAR(255) NOT NULL,
+	`personne_a_voir` VARCHAR(100) NOT NULL,
+	`heure_arrivee` TIME NOT NULL,
+	`heure_depart` TIME NULL,
+	`badge_id` VARCHAR(50) NOT NULL UNIQUE,
+	`statut` ENUM(\'present\',\'departi\') NOT NULL DEFAULT \'present\',
+	`commentaire` VARCHAR(255) NULL,
+	`date_creation` DATETIME NOT NULL,
+	`date_modification` DATETIME NULL,
+	CONSTRAINT `pk_visiteurs` PRIMARY KEY(`id`),
+	KEY `statut_date_creation` (`statut`, `date_creation`),
+	KEY `badge_id` (`badge_id`)
+) DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci')
+ 5 APPPATH\Database\Migrations\2026-03-09-000010_CreateVisitorsTables.php(83): CodeIgniter\Database\Forge->createTable('visiteurs', true)
+ 6 SYSTEMPATH\Database\MigrationRunner.php(1014): App\Database\Migrations\CreateVisitorsTables->up()
+ 7 SYSTEMPATH\Database\MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+ 8 SYSTEMPATH\Commands\Database\Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest(null)
+ 9 SYSTEMPATH\CLI\SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+10 SYSTEMPATH\Commands\Database\Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked(Object(Closure))
+11 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run([])
+12 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', [])
+13 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+14 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+15 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+DEBUG - 2026-03-14 03:50:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:50:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-03-14 03:50:54 --> CSRF token verified.
+DEBUG - 2026-03-14 03:50:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 03:50:54 --> TypeError: App\Controllers\AuthController::isAccountLocked(): Argument #1 ($userId) must be of type int, string given, called in D:\Projets\ocanada\app\Controllers\AuthController.php on line 80
+[Method: POST, Route: auth/attempt-login]
+in APPPATH\Controllers\AuthController.php on line 246.
+ 1 APPPATH\Controllers\AuthController.php(80): App\Controllers\AuthController->isAccountLocked('1')
+ 2 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 03:51:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:52:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:52:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-03-14 03:52:21 --> CSRF token verified.
+DEBUG - 2026-03-14 03:52:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 03:52:22 --> Unknown column 'type_evenement' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (:utilisateur_id:, :type_evenement:, :description:, :donnees_avant:, :donnees_apres:, :ip_adresse:, :date_evenement:)', [...], false)
+ 5 SYSTEMPATH\Model.php(356): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(898): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(665): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Models\AuditLogModel.php(43): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\BaseController.php(60): App\Models\AuditLogModel->log('CONNEXION', 1, [...], null, null)
+10 APPPATH\Controllers\AuthController.php(108): App\Controllers\BaseController->auditLog('CONNEXION', [...])
+11 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+12 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+13 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+17 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:52:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'type_evenement' in 'field list'
+[Method: POST, Route: auth/attempt-login]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (:utilisateur_id:, :type_evenement:, :description:, :donnees_avant:, :donnees_apres:, :ip_adresse:, :date_evenement:)', [...], false)
+ 2 SYSTEMPATH\Model.php(356): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(898): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(665): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Models\AuditLogModel.php(43): CodeIgniter\Model->insert([...])
+ 6 APPPATH\Controllers\BaseController.php(60): App\Models\AuditLogModel->log('CONNEXION', 1, [...], null, null)
+ 7 APPPATH\Controllers\AuthController.php(108): App\Controllers\BaseController->auditLog('CONNEXION', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:52:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'type_evenement' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (:utilisateur_id:, :type_evenement:, :description:, :donnees_avant:, :donnees_apres:, :ip_adresse:, :date_evenement:)', [...], false)
+ 4 SYSTEMPATH\Model.php(356): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(898): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(665): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Models\AuditLogModel.php(43): CodeIgniter\Model->insert([...])
+ 8 APPPATH\Controllers\BaseController.php(60): App\Models\AuditLogModel->log('CONNEXION', 1, [...], null, null)
+ 9 APPPATH\Controllers\AuthController.php(108): App\Controllers\BaseController->auditLog('CONNEXION', [...])
+10 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+11 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+12 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+16 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:52:22 --> [Caused by] mysqli_sql_exception: Unknown column 'type_evenement' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (1, \'CONNEXION\', \'{\\"user_id\\":1,\\"ip\\":\\"::1\\"}\', NULL, NULL, \'::1\', \'2026-03-14 03:52:22\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `audit_log` (`utilisateur_id`, `type_evenement`, `description`, `donnees_avant`, `donnees_apres`, `ip_adresse`, `date_evenement`) VALUES (:utilisateur_id:, :type_evenement:, :description:, :donnees_avant:, :donnees_apres:, :ip_adresse:, :date_evenement:)', [...], false)
+ 5 SYSTEMPATH\Model.php(356): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(898): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(665): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Models\AuditLogModel.php(43): CodeIgniter\Model->insert([...])
+ 9 APPPATH\Controllers\BaseController.php(60): App\Models\AuditLogModel->log('CONNEXION', 1, [...], null, null)
+10 APPPATH\Controllers\AuthController.php(108): App\Controllers\BaseController->auditLog('CONNEXION', [...])
+11 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\AuthController->attemptLogin()
+12 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+13 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+14 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+15 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+16 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+17 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+INFO - 2026-03-14 03:53:53 --> CSRF token verified.
+DEBUG - 2026-03-14 03:53:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:53:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 03:53:54 --> Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:53:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+[Method: GET, Route: admin/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 2 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:53:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 4 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:53:54 --> [Caused by] mysqli_sql_exception: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 03:54:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:54:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 03:54:00 --> Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+[Method: GET, Route: admin/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 2 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 4 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:00 --> [Caused by] mysqli_sql_exception: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 03:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:54:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 03:54:05 --> Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:05 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+[Method: GET, Route: admin/dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 2 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:05 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 4 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 03:54:05 --> [Caused by] mysqli_sql_exception: Table 'ocanada_db.presences' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `presences`
+WHERE `date_pointage` = \'2026-03-14\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `presences`
+WHERE `date_pointage` = :date_pointage:', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\PresenceModel.php(162): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\DashboardController.php(40): App\Models\PresenceModel->getByDate('2026-03-14')
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\DashboardController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\DashboardController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 03:58:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:59:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 03:59:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 03:59:07 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Builder::findAll()
+[Method: GET, Route: admin/employees]
+in APPPATH\Models\EmployeModel.php on line 182.
+ 1 APPPATH\Controllers\Admin\EmployeesController.php(39): App\Models\EmployeModel->search([...])
+ 2 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\EmployeesController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\EmployeesController))
+ 4 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:01:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:01:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:01:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 04:01:11 --> Unknown column 'is_actif' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = :is_actif:
+ORDER BY `heure_debut` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\ShiftModel.php(85): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\PlanningController.php(42): App\Models\ShiftModel->getActive()
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:01:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_actif' in 'where clause'
+[Method: GET, Route: admin/planning]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = :is_actif:
+ORDER BY `heure_debut` ASC', [...], false)
+ 2 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\ShiftModel.php(85): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Admin\PlanningController.php(42): App\Models\ShiftModel->getActive()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:01:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_actif' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = :is_actif:
+ORDER BY `heure_debut` ASC', [...], false)
+ 4 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\ShiftModel.php(85): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Admin\PlanningController.php(42): App\Models\ShiftModel->getActive()
+ 8 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+10 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:01:11 --> [Caused by] mysqli_sql_exception: Unknown column 'is_actif' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = 1
+ORDER BY `heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `shifts_modeles`
+WHERE `is_actif` = :is_actif:
+ORDER BY `heure_debut` ASC', [...], false)
+ 5 SYSTEMPATH\Model.php(254): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\ShiftModel.php(85): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Admin\PlanningController.php(42): App\Models\ShiftModel->getActive()
+ 9 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+10 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+11 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+15 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:02:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 04:02:44 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 5 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:44 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+[Method: GET, Route: admin/planning]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 2 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 4 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:44 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 5 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:02:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-03-14 04:02:48 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 5 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:48 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+[Method: GET, Route: admin/planning]
+in SYSTEMPATH\Database\BaseConnection.php on line 724.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 2 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:48 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 310.
+ 1 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 4 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 7 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+CRITICAL - 2026-03-14 04:02:48 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':(aff.date_debut IS NULL OR `aff`.`date_debut` <= '2026-03-09'):
+AND (`aff`.`...' at line 5
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 300.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(300): mysqli->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(769): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(686): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `aff`.*, `s`.`nom` as `shift_name`, `s`.`heure_debut`, `s`.`heure_fin`, `e`.`nom`, `e`.`prenom`
+FROM `affectations_shifts` as `aff`
+LEFT JOIN `shifts_modeles` `s` ON `s`.`id` = `aff`.`shift_id`
+LEFT JOIN `employes` `e` ON `e`.`id` = `aff`.`employe_id`
+WHERE (`aff`.`date_debut` IS NULL OR `aff`.`date_debut` <= \'2026-03-09\') :(aff.date_debut IS NULL OR `aff`.`date_debut` <= \'2026-03-09\'):
+AND (`aff`.`date_fin` IS NULL OR `aff`.`date_fin` >= \'2026-03-15\') :(aff.date_fin IS NULL OR `aff`.`date_fin` >= \'2026-03-15\'):
+ORDER BY `e`.`nom` ASC, `s`.`heure_debut` ASC', [...], false)
+ 5 APPPATH\Controllers\Admin\PlanningController.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 8 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+12 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:04:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 04:04:09 --> ErrorException: Undefined variable $currentUser
+[Method: GET, Route: admin/planning]
+in APPPATH\Views\layouts\main.php on line 27.
+ 1 APPPATH\Views\layouts\main.php(27): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $currentUser', 'D:\\Projets\\ocanada\\app\\Views\\layouts\\main.php', 27)
+ 2 SYSTEMPATH\View\View.php(238): include('D:\\Projets\\ocanada\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(241): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(254): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('admin/planning/index', [], true)
+ 6 APPPATH\Controllers\Admin\PlanningController.php(108): view('admin/planning/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\Admin\PlanningController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin\PlanningController))
+ 9 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:05:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:05:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:05:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:05:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:05:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:05:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 04:05:46 --> Error: Cannot call constructor
+[Method: GET, Route: admin/visitors]
+in APPPATH\Controllers\Admin\VisitorController.php on line 17.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\VisitorController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:05:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 04:05:55 --> Error: Cannot call constructor
+[Method: GET, Route: admin/documents]
+in APPPATH\Controllers\Admin\DocumentsController.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\DocumentsController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:06:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-03-14 04:06:02 --> Error: Cannot call constructor
+[Method: GET, Route: admin/rapports]
+in APPPATH\Controllers\Admin\ReportsController.php on line 21.
+ 1 SYSTEMPATH\CodeIgniter.php(921): App\Controllers\Admin\ReportsController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(488): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Projets\\ocanada\\public\\index.php')
+DEBUG - 2026-03-14 04:06:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:06:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:06:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:06:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:07:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:07:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:08:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:08:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:08:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-03-14 04:08:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
