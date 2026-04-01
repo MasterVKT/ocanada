@@ -43,12 +43,12 @@ class VisitorController extends BaseController
     {
         // Validation
         $rules = [
-            'nom'              => 'required|alpha_space|min_length[2]|max_length[50]',
-            'prenom'           => 'required|alpha_space|min_length[2]|max_length[50]',
+            'nom'              => 'required|regex_match[/^[\p{L}\s\'\-]+$/u]|min_length[2]|max_length[50]',
+            'prenom'           => 'required|regex_match[/^[\p{L}\s\'\-]+$/u]|min_length[2]|max_length[50]',
             'email'            => 'required|valid_email|max_length[100]',
             'telephone'        => 'required|regex_match[/^[\d\s\-\+\(\)]+$/]|min_length[7]|max_length[20]',
-            'motif'            => 'required|alpha_numeric_space|min_length[3]|max_length[255]',
-            'personne_a_voir'  => 'required|alpha_space|min_length[3]|max_length[100]',
+            'motif'            => 'required|regex_match[/^[\p{L}\p{N}\s\'\-\.,\(\)\/:&]+$/u]|min_length[3]|max_length[255]',
+            'personne_a_voir'  => 'required|regex_match[/^[\p{L}\s\'\-]+$/u]|min_length[3]|max_length[100]',
         ];
 
         if (!$this->validate($rules)) {

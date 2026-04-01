@@ -178,6 +178,7 @@
         const form = document.getElementById('visitorForm');
         const errorCards = document.querySelectorAll('.invalid-feedback');
         errorCards.forEach(el => el.textContent = '');
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
 
         const formData = new FormData(form);
 
@@ -233,6 +234,9 @@
                 Object.entries(json.errors).forEach(([field, message]) => {
                     const el = document.getElementById(`error-${field}`);
                     if (el) el.textContent = message;
+
+                    const input = document.getElementById(field);
+                    if (input) input.classList.add('is-invalid');
                 });
                 form.classList.add('was-validated');
             } else if (json && json.message) {
@@ -251,6 +255,8 @@
     function resetForm() {
         document.getElementById('visitorForm').reset();
         document.getElementById('visitorForm').classList.remove('was-validated');
+        document.querySelectorAll('#visitorForm .is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        document.querySelectorAll('#visitorForm .invalid-feedback').forEach(el => el.textContent = '');
         document.getElementById('successCard').style.display = 'none';
         document.getElementById('prenom').focus();
     }
