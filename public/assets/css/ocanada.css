@@ -384,6 +384,8 @@ body {
     flex: 1;
     overflow-y: auto;
     background-color: #F7FAFC;
+    display: flex;
+    flex-direction: column;
 }
 
 .chatbot-message {
@@ -391,6 +393,9 @@ body {
     border-radius: 0.75rem;
     margin-bottom: 0.5rem;
     font-size: 0.875rem;
+    max-width: 85%;
+    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
 .chatbot-message-bot {
@@ -893,6 +898,30 @@ body {
     background: linear-gradient(180deg, #FFFFFF, rgba(248, 250, 252, 0.94));
 }
 
+.reports-page {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.reports-shell {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+}
+
+.reports-builder-card .card-body,
+.reports-helper-card .card-body {
+    padding: 1.5rem;
+}
+
+.reports-builder-card .form-label {
+    font-weight: 600;
+}
+
+.reports-builder-card .form-select,
+.reports-builder-card .form-control {
+    background-color: rgba(255, 255, 255, 0.96);
+}
+
 .reports-generate-btn {
     min-width: 10rem;
     box-shadow: 0 10px 24px rgba(196, 18, 48, 0.2);
@@ -989,6 +1018,29 @@ body {
 
 .report-type-card.tone-danger.is-selected {
     border-color: rgba(229, 62, 62, 0.45);
+}
+
+@media (min-width: 1400px) {
+    .reports-helper-card {
+        position: sticky;
+        top: 6.75rem;
+    }
+}
+
+@media (max-width: 1399.98px) {
+    .reports-helper-card {
+        height: auto !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .reports-shell {
+        --bs-gutter-x: 1rem;
+    }
+
+    .reports-generate-btn {
+        width: 100%;
+    }
 }
 
 .dashboard-chart-wrap {

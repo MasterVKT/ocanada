@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/main'); ?>
-
-<?php $this->section('content'); ?>
-
 <div class="container-fluid mt-4">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -18,8 +14,8 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-4">
-                    <a href="<?= base_url('/employe/planning/month?month=' . $prev_month) ?>" 
-                       class="btn btn-outline-secondary btn-sm">
+                    <a href="<?= base_url('/employe/planning/month?month=' . $prev_month) ?>"
+                        class="btn btn-outline-secondary btn-sm">
                         <i class="bi bi-chevron-left"></i> Mois Précédent
                     </a>
                 </div>
@@ -31,8 +27,8 @@
                     </h5>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="<?= base_url('/employe/planning/month?month=' . $next_month) ?>" 
-                       class="btn btn-outline-secondary btn-sm">
+                    <a href="<?= base_url('/employe/planning/month?month=' . $next_month) ?>"
+                        class="btn btn-outline-secondary btn-sm">
                         Mois Suivant <i class="bi bi-chevron-right"></i>
                     </a>
                 </div>
@@ -93,5 +89,3 @@
         </small>
     </div>
 </div>
-
-<?php $this->endSection(); ?>

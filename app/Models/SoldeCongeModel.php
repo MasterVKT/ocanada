@@ -10,6 +10,8 @@ use CodeIgniter\Model;
  */
 class SoldeCongeModel extends Model
 {
+    private ?bool $usesLegacyColumns = null;
+
     protected $table            = 'soldes_conges';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -19,12 +21,13 @@ class SoldeCongeModel extends Model
     protected $allowedFields    = [
         'employe_id',
         'annee',
+        'jours_total',
+        'jours_pris',
+        'jours_restants',
+        'date_mise_a_jour',
         'solde_annuel',
         'pris',
         'restant',
-        'reporte',
-        'maladie_pris',
-        'maladie_restant',
         'date_creation',
         'date_modification',
     ];
@@ -33,74 +36,19 @@ class SoldeCongeModel extends Model
     protected bool $updateOnlyChanged = true;
 
     protected array $casts = [
-        'solde_annuel'    => 'float',
-        'pris'           => 'float',
-        'restant'        => 'float',
-        'reporte'        => 'float',
-        'maladie_pris'   => 'float',
-        'maladie_restant' => 'float',
+        'jours_total'     => '?float',
+        'jours_pris'      => '?float',
+        'jours_restants'  => '?float',
+        'solde_annuel'    => '?float',
+        'pris'            => '?float',
+        'restant'         => '?float',
     ];
     protected array $castHandlers = [];
 
     // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
+    protected $useTimestamps = false;
     protected $createdField  = 'date_creation';
     protected $updatedField  = 'date_modification';
-
-    // Validation
-    protected $validationRules = [
-        'employe_id'      => 'required|integer|is_not_unique[employes.id]',
-        'annee'          => 'required|integer|greater_than[2000]',
-        'solde_annuel'   => 'required|numeric|greater_than_equal_to[0]',
-        'pris'           => 'required|numeric|greater_than_equal_to[0]',
-        'restant'        => 'required|numeric|greater_than_equal_to[0]',
-        'reporte'        => 'permit_empty|numeric|greater_than_equal_to[0]',
-        'maladie_pris'   => 'required|numeric|greater_than_equal_to[0]',
-        'maladie_restant' => 'required|numeric|greater_than_equal_to[0]',
-    ];
-
-    protected $validationMessages = [
-        'employe_id' => [
-            'required' => 'L\'ID employé est obligatoire.',
-            'integer'  => 'L\'ID employé doit être un entier.',
-            'is_not_unique' => 'L\'employé n\'existe pas.',
-        ],
-        'annee' => [
-            'required' => 'L\'année est obligatoire.',
-            'integer'  => 'L\'année doit être un entier.',
-            'greater_than' => 'L\'année doit être supérieure à 2000.',
-        ],
-        'solde_annuel' => [
-            'required' => 'Le solde annuel est obligatoire.',
-            'numeric'  => 'Le solde annuel doit être un nombre.',
-            'greater_than_equal_to' => 'Le solde annuel ne peut pas être négatif.',
-        ],
-        'pris' => [
-            'required' => 'Le nombre de jours pris est obligatoire.',
-            'numeric'  => 'Le nombre de jours pris doit être un nombre.',
-            'greater_than_equal_to' => 'Le nombre de jours pris ne peut pas être négatif.',
-        ],
-        'restant' => [
-            'required' => 'Le solde restant est obligatoire.',
-            'numeric'  => 'Le solde restant doit être un nombre.',
-            'greater_than_equal_to' => 'Le solde restant ne peut pas être négatif.',
-        ],
-    ];
-
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
-
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
 
     /**
      * Initialise le solde de congé pour un employé
@@ -129,15 +77,25 @@ class SoldeCongeModel extends Model
             return true; // Déjà initialisé
         }
 
-        return $this->insert([
-            'employe_id'      => $employeId,
-            'annee'          => $annee,
-            'solde_annuel'   => $soldeAnnuel,
-            'pris'           => 0,
-            'restant'        => $soldeAnnuel,
-            'reporte'        => 0,
-            'maladie_pris'   => 0,
-            'maladie_restant' => 30, // 30 jours maladie par an
+        if ($this->isLegacySchema()) {
+            return (bool) $this->insert([
+                'employe_id'        => $employeId,
+                'annee'             => $annee,
+                'solde_annuel'      => $soldeAnnuel,
+                'pris'              => 0,
+                'restant'           => $soldeAnnuel,
+                'date_creation'     => date('Y-m-d H:i:s'),
+                'date_modification' => date('Y-m-d H:i:s'),
+            ]);
+        }
+
+        return (bool) $this->insert([
+            'employe_id'       => $employeId,
+            'annee'            => $annee,
+            'jours_total'      => $soldeAnnuel,
+            'jours_pris'       => 0,
+            'jours_restants'   => $soldeAnnuel,
+            'date_mise_a_jour' => date('Y-m-d H:i:s'),
         ]);
     }
 
@@ -160,7 +118,7 @@ class SoldeCongeModel extends Model
     /**
      * Met à jour le solde après approbation d'un congé
      */
-    public function updateAfterLeaveApproval(int $employeId, float $joursPris, string $typeConge = 'annuel'): bool
+    public function updateAfterLeaveApproval(int $employeId, float $joursPris): bool
     {
         $annee = (int) date('Y');
         $solde = $this->where('employe_id', $employeId)
@@ -171,23 +129,25 @@ class SoldeCongeModel extends Model
             return false;
         }
 
-        if ($typeConge === 'maladie') {
-            $nouveauPris = $solde['maladie_pris'] + $joursPris;
-            $nouveauRestant = max(0, $solde['maladie_restant'] - $joursPris);
+        if ($this->isLegacySchema()) {
+            $nouveauPris = (float) ($solde['pris'] ?? 0) + $joursPris;
+            $nouveauRestant = max(0, (float) ($solde['restant'] ?? 0) - $joursPris);
 
             return $this->update($solde['id'], [
-                'maladie_pris' => $nouveauPris,
-                'maladie_restant' => $nouveauRestant,
-            ]);
-        } else {
-            $nouveauPris = $solde['pris'] + $joursPris;
-            $nouveauRestant = max(0, $solde['restant'] - $joursPris);
-
-            return $this->update($solde['id'], [
-                'pris' => $nouveauPris,
-                'restant' => $nouveauRestant,
+                'pris'              => $nouveauPris,
+                'restant'           => $nouveauRestant,
+                'date_modification' => date('Y-m-d H:i:s'),
             ]);
         }
+
+        $nouveauPris = (float) ($solde['jours_pris'] ?? 0) + $joursPris;
+        $nouveauRestant = max(0, (float) ($solde['jours_restants'] ?? 0) - $joursPris);
+
+        return $this->update($solde['id'], [
+            'jours_pris'       => $nouveauPris,
+            'jours_restants'   => $nouveauRestant,
+            'date_mise_a_jour' => date('Y-m-d H:i:s'),
+        ]);
     }
 
     /**
@@ -196,15 +156,28 @@ class SoldeCongeModel extends Model
     public function getCurrentSolde(int $employeId): ?array
     {
         $annee = (int) date('Y');
-        return $this->where('employe_id', $employeId)
+        $solde = $this->where('employe_id', $employeId)
             ->where('annee', $annee)
             ->first();
+
+        if (!$solde) {
+            return null;
+        }
+
+        // Normalize legacy keys for current callers.
+        if ($this->isLegacySchema()) {
+            $solde['jours_total'] = (float) ($solde['solde_annuel'] ?? 0);
+            $solde['jours_pris'] = (float) ($solde['pris'] ?? 0);
+            $solde['jours_restants'] = (float) ($solde['restant'] ?? 0);
+        }
+
+        return $solde;
     }
 
     /**
      * Vérifie si l'employé a assez de solde pour le congé demandé
      */
-    public function hasEnoughSolde(int $employeId, float $joursDemandes, string $typeConge = 'annuel'): bool
+    public function hasEnoughSolde(int $employeId, float $joursDemandes): bool
     {
         $solde = $this->getCurrentSolde($employeId);
 
@@ -212,10 +185,21 @@ class SoldeCongeModel extends Model
             return false;
         }
 
-        if ($typeConge === 'maladie') {
-            return $solde['maladie_restant'] >= $joursDemandes;
-        } else {
-            return $solde['restant'] >= $joursDemandes;
+        return (float) $solde['jours_restants'] >= $joursDemandes;
+    }
+
+    /**
+     * Detects if soldes_conges uses legacy columns (solde_annuel/pris/restant).
+     */
+    private function isLegacySchema(): bool
+    {
+        if ($this->usesLegacyColumns !== null) {
+            return $this->usesLegacyColumns;
         }
+
+        $this->usesLegacyColumns = $this->db->fieldExists('solde_annuel', $this->table)
+            && !$this->db->fieldExists('jours_total', $this->table);
+
+        return $this->usesLegacyColumns;
     }
 }

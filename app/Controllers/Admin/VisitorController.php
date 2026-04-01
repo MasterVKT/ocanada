@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Admin;
@@ -40,7 +41,7 @@ class VisitorController extends BaseController
                 $builder->where('statut', 'present');
                 break;
             case 'today':
-                $builder->whereDate('date_creation', date('Y-m-d'));
+                $builder->where('DATE(date_creation)', date('Y-m-d'));
                 break;
             case 'week':
                 $builder->where('date_creation >=', date('Y-m-d H:i:s', strtotime('-7 days')));
@@ -66,7 +67,8 @@ class VisitorController extends BaseController
             ->get()
             ->getResult('array');
 
-        return view('admin/visitors/index', [
+        return $this->renderView('admin/visitors/index', [
+            'title'       => 'Gestion des visiteurs',
             'visitors'    => $visitors,
             'filter'      => $filter,
             'searchTerm'  => $searchTerm,
@@ -91,7 +93,7 @@ class VisitorController extends BaseController
         $timeSpent = null;
         if ($visitor['heure_arrivee']) {
             $arrival = new \DateTime($visitor['date_creation']);
-            if ($visitor['heure_depart'] && $visitor['statut'] === 'parti') {
+            if ($visitor['heure_depart'] && $this->isDepartedStatus((string) ($visitor['statut'] ?? ''))) {
                 $departure = new \DateTime($visitor['date_modification']);
             } else {
                 $departure = new \DateTime();
@@ -107,8 +109,9 @@ class VisitorController extends BaseController
             $visitor['badge_id'] = $badgeId;
         }
 
-        return view('admin/visitors/show', [
-            'visitor'   => $visitor,
+        return $this->renderView('admin/visitors/show', [
+            'title'    => 'Détail du visiteur',
+            'visitor'  => $visitor,
             'timeSpent' => $timeSpent,
         ]);
     }
@@ -131,7 +134,8 @@ class VisitorController extends BaseController
             $visitor['badge_id'] = $badgeId;
         }
 
-        return view('admin/visitors/badge', [
+        return $this->renderView('admin/visitors/badge', [
+            'title'     => 'Badge visiteur',
             'visitor'  => $visitor,
             'qrCodeUrl' => $this->getQRCodeUrl($visitor['badge_id']),
         ]);
@@ -151,7 +155,7 @@ class VisitorController extends BaseController
             ])->setStatusCode(404);
         }
 
-        if ($visitor['statut'] === 'parti') {
+        if ($this->isDepartedStatus((string) ($visitor['statut'] ?? ''))) {
             return $this->response->setJSON([
                 'success' => false,
                 'message' => 'Le visiteur est déjà parti',
@@ -160,7 +164,7 @@ class VisitorController extends BaseController
 
         $this->visiteurModel->update($id, [
             'heure_depart' => date('H:i:s'),
-            'statut'       => 'parti',
+            'statut'       => $this->resolveDepartedStatusValue(),
         ]);
 
         // Notification
@@ -243,7 +247,8 @@ class VisitorController extends BaseController
             }
             if ($count > 0) {
                 $seconds = (int)($totalSeconds / $count);
-                $avgDuration = sprintf('%02d:%02d:%02d', 
+                $avgDuration = sprintf(
+                    '%02d:%02d:%02d',
                     intdiv($seconds, 3600),
                     intdiv($seconds % 3600, 60),
                     $seconds % 60
@@ -251,14 +256,15 @@ class VisitorController extends BaseController
             }
         }
 
-        return view('admin/visitors/statistics', [
-            'todayVisitors'    => $todayVisitors,
-            'todayPresent'     => $todayPresent,
-            'todayDeparted'    => $todayDeparted,
-            'weekVisitors'     => $weekVisitors,
-            'topEmployees'     => $topEmployees,
-            'topMotifs'        => $topMotifs,
-            'avgDuration'      => $avgDuration,
+        return $this->renderView('admin/visitors/statistics', [
+            'title'           => 'Statistiques visiteurs',
+            'todayVisitors'   => $todayVisitors,
+            'todayPresent'    => $todayPresent,
+            'todayDeparted'   => $todayDeparted,
+            'weekVisitors'    => $weekVisitors,
+            'topEmployees'    => $topEmployees,
+            'topMotifs'       => $topMotifs,
+            'avgDuration'     => $avgDuration,
         ]);
     }
 
@@ -332,5 +338,15 @@ class VisitorController extends BaseController
     {
         // Using QR server (no dependencies)
         return "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($badgeId);
+    }
+
+    private function isDepartedStatus(string $status): bool
+    {
+        return in_array($status, ['departi', 'sorti', 'parti'], true);
+    }
+
+    private function resolveDepartedStatusValue(): string
+    {
+        return $this->db->fieldExists('numero_badge', 'visiteurs') ? 'sorti' : 'departi';
     }
 }

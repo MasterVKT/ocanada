@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Commands;
@@ -28,8 +29,15 @@ class AutoCheckoutVisitorsCommand extends BaseCommand
         try {
             // Get all visitors still present today
             $today = date('Y-m-d');
+            $departedStatus = 'departi';
+            foreach (db_connect()->getFieldData('visiteurs') as $field) {
+                if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                    $departedStatus = str_contains(strtolower($field->type), 'sorti') ? 'sorti' : 'departi';
+                    break;
+                }
+            }
             $presentToday = $visiteurModel->builder()
-                ->whereDate('date_creation', $today)
+                ->where('DATE(date_creation)', $today)
                 ->where('statut', 'present')
                 ->get()
                 ->getResult('array');
@@ -43,7 +51,7 @@ class AutoCheckoutVisitorsCommand extends BaseCommand
             foreach ($presentToday as $visitor) {
                 $visiteurModel->update($visitor['id'], [
                     'heure_depart' => date('H:i:s'),
-                    'statut'       => 'parti',
+                    'statut'       => $departedStatus,
                     'commentaire'  => 'Auto-clôture fin de journée',
                 ]);
 
@@ -61,9 +69,8 @@ class AutoCheckoutVisitorsCommand extends BaseCommand
 
             CLI::write("✓ {$updatedCount} visiteur(s) clôturé(s) avec succès", 'green');
             return 0;
-
         } catch (\Exception $e) {
-            CLI::writeError('✗ Erreur: ' . $e->getMessage());
+            CLI::error('Erreur: ' . $e->getMessage());
             return 1;
         }
     }

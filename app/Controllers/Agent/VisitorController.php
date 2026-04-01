@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Agent;
@@ -52,8 +53,9 @@ class VisitorController extends BaseController
 
         if (!$this->validate($rules)) {
             return $this->response->setJSON([
-                'success' => false,
-                'errors' => $this->validator->getErrors(),
+                'success'   => false,
+                'errors'    => $this->validator->getErrors(),
+                'csrfToken' => csrf_hash(),
             ])->setStatusCode(422);
         }
 
@@ -65,11 +67,21 @@ class VisitorController extends BaseController
             'telephone'        => $this->request->getPost('telephone'),
             'motif'            => $this->request->getPost('motif'),
             'personne_a_voir'  => $this->request->getPost('personne_a_voir'),
-            'heure_arrivee'    => date('H:i:s'),
+            'heure_arrivee'    => date('H:i'),
             'statut'           => 'present',
         ];
 
         $visiteurId = $this->visiteurModel->insert($data);
+
+        if ($visiteurId === false) {
+            return $this->response->setJSON([
+                'success'   => false,
+                'message'   => 'Impossible d\'enregistrer le visiteur.',
+                'errors'    => $this->visiteurModel->errors(),
+                'csrfToken' => csrf_hash(),
+            ])->setStatusCode(422);
+        }
+
         $visiteur = $this->visiteurModel->find($visiteurId);
 
         // Generate badge
@@ -77,22 +89,25 @@ class VisitorController extends BaseController
         $this->visiteurModel->update($visiteurId, ['badge_id' => $badgeId]);
         $visiteur['badge_id'] = $badgeId;
 
-        // Notify
+        // Notify (best-effort to avoid blocking registration if notification layer is unavailable)
         $notificationService = service('notification');
-        $notificationService->notifyAdmins(
-            'VISITEUR_ARRIVEE',
-            'Nouvel visiteur',
-            "{$visiteur['prenom']} {$visiteur['nom']} pour voir {$visiteur['personne_a_voir']} (Enregistré par agent)",
-            '/admin/visitors/' . $visiteurId
-        );
+        if ($notificationService !== null && method_exists($notificationService, 'notifyAdmins')) {
+            $notificationService->notifyAdmins(
+                'VISITEUR_ARRIVEE',
+                'Nouvel visiteur',
+                "{$visiteur['prenom']} {$visiteur['nom']} pour voir {$visiteur['personne_a_voir']} (Enregistré par agent)",
+                '/admin/visitors/' . $visiteurId
+            );
+        }
 
-        // Return QR code for printing
+        // Return QR code for printing + fresh CSRF token for subsequent requests
         return $this->response->setJSON([
-            'success'   => true,
+            'success'    => true,
             'visiteurId' => $visiteurId,
-            'badgeId'   => $badgeId,
-            'qrCodeUrl' => $this->getQRCodeUrl($badgeId),
-            'message'   => "Visiteur enregistré: {$visiteur['prenom']} {$visiteur['nom']}",
+            'badgeId'    => $badgeId,
+            'qrCodeUrl'  => $this->getQRCodeUrl($badgeId),
+            'message'    => "Visiteur enregistré: {$visiteur['prenom']} {$visiteur['nom']}",
+            'csrfToken'  => csrf_hash(),
         ]);
     }
 
@@ -130,9 +145,9 @@ class VisitorController extends BaseController
         $results = $this->visiteurModel->builder()
             ->where('statut', 'present')
             ->groupStart()
-                ->like('nom', $term)
-                ->orLike('prenom', $term)
-                ->orLike('badge_id', $term)
+            ->like('nom', $term)
+            ->orLike('prenom', $term)
+            ->orLike('badge_id', $term)
             ->groupEnd()
             ->orderBy('date_creation', 'DESC')
             ->limit(10)
@@ -141,7 +156,7 @@ class VisitorController extends BaseController
 
         return $this->response->setJSON([
             'success' => true,
-            'results' => array_map(function($v) {
+            'results' => array_map(function ($v) {
                 return [
                     'id'       => $v['id'],
                     'name'     => "{$v['prenom']} {$v['nom']}",
@@ -160,30 +175,34 @@ class VisitorController extends BaseController
     {
         $visitor = $this->visiteurModel->find($id);
 
-        if (!$visitor || $visitor['statut'] === 'parti') {
+        if (!$visitor || $this->isDepartedStatus((string) ($visitor['statut'] ?? ''))) {
             return $this->response->setJSON([
-                'success' => false,
-                'message' => 'Visiteur non trouvé ou déjà parti',
+                'success'   => false,
+                'message'   => 'Visiteur non trouvé ou déjà parti',
+                'csrfToken' => csrf_hash(),
             ])->setStatusCode(404);
         }
 
         $this->visiteurModel->update($id, [
-            'heure_depart' => date('H:i:s'),
-            'statut'       => 'departi',
+            'heure_depart' => date('H:i'),
+            'statut'       => $this->resolveDepartedStatusValue(),
         ]);
 
-        // Notify
+        // Notify (best-effort)
         $notificationService = service('notification');
-        $notificationService->notifyAdmins(
-            'VISITEUR_DEPART',
-            'Visiteur parti',
-            "{$visitor['prenom']} {$visitor['nom']} - Enregistré par agent",
-            '/admin/visitors/' . $id
-        );
+        if ($notificationService !== null && method_exists($notificationService, 'notifyAdmins')) {
+            $notificationService->notifyAdmins(
+                'VISITEUR_DEPART',
+                'Visiteur parti',
+                "{$visitor['prenom']} {$visitor['nom']} - Enregistré par agent",
+                '/admin/visitors/' . $id
+            );
+        }
 
         return $this->response->setJSON([
-            'success'  => true,
-            'message'  => "Départ enregistré pour {$visitor['prenom']} {$visitor['nom']}",
+            'success'   => true,
+            'message'   => "Départ enregistré pour {$visitor['prenom']} {$visitor['nom']}",
+            'csrfToken' => csrf_hash(),
         ]);
     }
 
@@ -211,14 +230,17 @@ class VisitorController extends BaseController
         // Stats
         $totalVisitors = count($visitors);
         $avgVisitDuration = '--:--';
-        
+
         if ($totalVisitors > 0) {
             $durations = [];
             foreach (array_filter($visitors, fn($v) => $v['heure_depart']) as $v) {
-                $arrival = new \DateTime($v['date_creation']);
-                $departure = new \DateTime($v['date_modification']);
-                $interval = $arrival->diff($departure);
-                $durations[] = $interval->s + ($interval->i * 60) + ($interval->h * 3600);
+                $seconds = $this->computeVisitDurationSeconds(
+                    (string) ($v['heure_arrivee'] ?? ''),
+                    (string) ($v['heure_depart'] ?? '')
+                );
+                if ($seconds > 0) {
+                    $durations[] = $seconds;
+                }
             }
             if (!empty($durations)) {
                 $avg = (int)(array_sum($durations) / count($durations));
@@ -297,5 +319,41 @@ class VisitorController extends BaseController
     private function getQRCodeUrl(string $badgeId): string
     {
         return "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" . urlencode($badgeId);
+    }
+
+    private function isDepartedStatus(string $status): bool
+    {
+        return in_array($status, ['departi', 'sorti', 'parti'], true);
+    }
+
+    private function resolveDepartedStatusValue(): string
+    {
+        foreach ($this->db->getFieldData('visiteurs') as $field) {
+            if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                return str_contains(strtolower($field->type), 'sorti') ? 'sorti' : 'departi';
+            }
+        }
+
+        return 'departi';
+    }
+
+    private function computeVisitDurationSeconds(string $arrivalTime, string $departureTime): int
+    {
+        if ($arrivalTime === '' || $departureTime === '') {
+            return 0;
+        }
+
+        $arrivalTs = strtotime('1970-01-01 ' . $arrivalTime);
+        $departureTs = strtotime('1970-01-01 ' . $departureTime);
+
+        if ($arrivalTs === false || $departureTs === false) {
+            return 0;
+        }
+
+        if ($departureTs < $arrivalTs) {
+            $departureTs += 86400;
+        }
+
+        return max(0, $departureTs - $arrivalTs);
     }
 }

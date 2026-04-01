@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/main'); ?>
-
-<?php $this->section('content'); ?>
-
 <div class="container-fluid mt-4">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -93,7 +89,7 @@
                 </div>
                 <div class="card-body">
                     <p class="mb-0">
-                        <?= nl2br(esc($leave['motif'])) ?>
+                        <?= nl2br(esc((string) ($leave['motif'] ?? ''))) ?>
                     </p>
                 </div>
             </div>
@@ -165,9 +161,9 @@
                     <div>
                         <p class="text-muted mb-2">Solde après approbation</p>
                         <h5 class="text-success mb-0">
-                            <?php 
-                                $solve_after = $solde['restant'] - $leave['jours_ouvrables'];
-                                echo number_format(max(0, $solve_after), 1, ',', '');
+                            <?php
+                            $solve_after = $solde['restant'] - $leave['jours_ouvrables'];
+                            echo number_format(max(0, $solve_after), 1, ',', '');
                             ?> jours
                         </h5>
                     </div>
@@ -215,7 +211,7 @@
                     </div>
                     <div class="card-body">
                         <p class="text-muted small mb-3">
-                            Malheureusement, votre demande a été refusée. 
+                            Malheureusement, votre demande a été refusée.
                             Vous pouvez soumettre une nouvelle demande pour une période différente.
                         </p>
                         <a href="<?= base_url('/employe/leaves/create') ?>" class="btn btn-sm btn-primary w-100">
@@ -248,25 +244,20 @@
 </div>
 
 <script>
-function cancelRequest() {
-    if (confirm('Êtes-vous sûr de vouloir annuler cette demande?')) {
-        fetch(`<?= base_url('/employe/leaves/' . $leave['id'] . '/cancel') ?>`, {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                alert('Demande annulée');
-                window.location.href = '<?= base_url('/employe/leaves') ?>';
-            } else {
-                alert('Erreur: ' + data.message);
-            }
-        });
+    function cancelRequest() {
+        if (confirm('Êtes-vous sûr de vouloir annuler cette demande?')) {
+            window.securePost(`<?= base_url('/employe/leaves/' . $leave['id'] . '/cancel') ?>`, {})
+                .then(data => {
+                    if (data.success) {
+                        alert('Demande annulée');
+                        window.location.href = '<?= base_url('/employe/leaves') ?>';
+                    } else {
+                        alert('Erreur: ' + data.message);
+                    }
+                })
+                .catch((error) => {
+                    alert('Erreur: ' + error.message);
+                });
+        }
     }
-}
 </script>
-
-<?php $this->endSection(); ?>

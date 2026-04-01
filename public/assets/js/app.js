@@ -76,7 +76,7 @@
             userDiv.className = 'chatbot-message chatbot-message-user';
             userDiv.textContent = text;
             chatbotMessages.appendChild(userDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            requestAnimationFrame(() => { chatbotMessages.scrollTop = chatbotMessages.scrollHeight; });
 
             chatbotInput.value = '';
 
@@ -84,7 +84,7 @@
             typingDiv.className = 'chatbot-message chatbot-message-bot text-muted';
             typingDiv.textContent = '...';
             chatbotMessages.appendChild(typingDiv);
-            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            requestAnimationFrame(() => { chatbotMessages.scrollTop = chatbotMessages.scrollHeight; });
 
             try {
                 const data = await window.securePost('/ia/chatbot', { message: text });
@@ -95,7 +95,7 @@
                 botDiv.className = 'chatbot-message chatbot-message-bot';
                 botDiv.textContent = data.reply || 'Aucune reponse.';
                 chatbotMessages.appendChild(botDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                requestAnimationFrame(() => { chatbotMessages.scrollTop = chatbotMessages.scrollHeight; });
             } catch (error) {
                 typingDiv.remove();
 
@@ -103,7 +103,7 @@
                 botDiv.className = 'chatbot-message chatbot-message-bot text-danger';
                 botDiv.textContent = 'Le service est indisponible pour le moment.';
                 chatbotMessages.appendChild(botDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                requestAnimationFrame(() => { chatbotMessages.scrollTop = chatbotMessages.scrollHeight; });
             }
         });
     }

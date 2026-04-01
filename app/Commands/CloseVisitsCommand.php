@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Commands;
@@ -29,6 +30,13 @@ class CloseVisitsCommand extends BaseCommand
     public function run(array $params = [])
     {
         $maxHours = (int) ($params[0] ?? 8);
+        $departedStatus = 'departi';
+        foreach (db_connect()->getFieldData('visiteurs') as $field) {
+            if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                $departedStatus = str_contains(strtolower($field->type), 'sorti') ? 'sorti' : 'departi';
+                break;
+            }
+        }
 
         // Get all open visits that exceed max hours
         $db = db_connect();
@@ -50,7 +58,7 @@ class CloseVisitsCommand extends BaseCommand
             $db->table('visiteurs')->update(
                 [
                     'heure_depart'      => date('H:i:s'),
-                    'statut'            => 'departi',
+                    'statut'            => $departedStatus,
                     'date_modification' => date('Y-m-d H:i:s'),
                 ],
                 ['id' => $visit['id']]

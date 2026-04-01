@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Libraries;
@@ -27,14 +28,22 @@ class WorkingDaysCalculator
         $start = Time::createFromFormat('Y-m-d', $startDate);
         $end   = Time::createFromFormat('Y-m-d', $endDate);
 
+        if (! $start instanceof Time || ! $end instanceof Time) {
+            return 0;
+        }
+
         if ($start->isAfter($end)) {
             return 0;
         }
 
         $workingDays = 0;
-        $current     = $start->clone();
+        $current     = Time::createFromFormat('Y-m-d', $start->format('Y-m-d'));
 
-        while ($current->isBefore($end) || $current->isSameDay($end)) {
+        if (! $current instanceof Time) {
+            return 0;
+        }
+
+        while ($current->isBefore($end) || $current->format('Y-m-d') === $end->format('Y-m-d')) {
             if ($this->isWorkingDay($current)) {
                 $workingDays++;
             }
@@ -50,7 +59,7 @@ class WorkingDaysCalculator
     public function isWorkingDay(Time $date): bool
     {
         // Exclure les week-ends (samedi et dimanche)
-        if ($date->dayOfWeek >= 6) { // 6 = samedi, 0 = dimanche
+        if (in_array($date->dayOfWeek, [0, 6], true)) { // 0 = dimanche, 6 = samedi
             return false;
         }
 

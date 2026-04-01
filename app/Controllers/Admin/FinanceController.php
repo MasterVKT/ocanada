@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Admin;
@@ -8,6 +9,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class FinanceController extends BaseController
 {
+    /**
+     * @var string[]|null
+     */
+    private ?array $employeeColumnsCache = null;
+
     public function exportCsv(): ResponseInterface
     {
         $filters = $this->resolveFilters();
@@ -144,13 +150,14 @@ class FinanceController extends BaseController
     private function buildSummary(string $periodStart, string $periodEnd, string $departement = ''): array
     {
         $db = db_connect();
+        $dailySalaryExpr = $this->getDailySalaryExpression();
         $builder = $db->table('presences p')
             ->select(
                 "COUNT(*) AS total_pointages,
                 SUM(CASE WHEN p.statut = 'absent' THEN 1 ELSE 0 END) AS total_absences,
                 SUM(CASE WHEN p.statut = 'retard' THEN IFNULL(p.retard_minutes, 0) ELSE 0 END) AS total_retard_minutes,
-                SUM(CASE WHEN p.statut = 'absent' THEN IFNULL(e.salaire_base, 0) / 22 ELSE 0 END) AS cout_absenteisme,
-                SUM(CASE WHEN p.statut = 'retard' THEN ((IFNULL(e.salaire_base, 0) / 22) / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retards,
+                SUM(CASE WHEN p.statut = 'absent' THEN {$dailySalaryExpr} ELSE 0 END) AS cout_absenteisme,
+                SUM(CASE WHEN p.statut = 'retard' THEN ({$dailySalaryExpr} / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retards,
                 SUM(CASE WHEN p.statut IN ('present', 'retard') THEN 1 ELSE 0 END) AS total_presence"
             )
             ->join('employes e', 'e.id = p.employe_id', 'left')
@@ -184,6 +191,7 @@ class FinanceController extends BaseController
     private function buildEmployeeRanking(string $periodStart, string $periodEnd, string $departement = ''): array
     {
         $db = db_connect();
+        $dailySalaryExpr = $this->getDailySalaryExpression();
         $builder = $db->table('presences p')
             ->select(
                 "p.employe_id,
@@ -195,8 +203,8 @@ class FinanceController extends BaseController
                 SUM(CASE WHEN p.statut IN ('present', 'retard') THEN 1 ELSE 0 END) AS jours_presence,
                 SUM(CASE WHEN p.statut = 'absent' THEN 1 ELSE 0 END) AS jours_absence,
                 SUM(CASE WHEN p.statut = 'retard' THEN IFNULL(p.retard_minutes, 0) ELSE 0 END) AS retard_minutes,
-                SUM(CASE WHEN p.statut = 'absent' THEN IFNULL(e.salaire_base, 0) / 22 ELSE 0 END) AS cout_absence,
-                SUM(CASE WHEN p.statut = 'retard' THEN ((IFNULL(e.salaire_base, 0) / 22) / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retard"
+                SUM(CASE WHEN p.statut = 'absent' THEN {$dailySalaryExpr} ELSE 0 END) AS cout_absence,
+                SUM(CASE WHEN p.statut = 'retard' THEN ({$dailySalaryExpr} / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retard"
             )
             ->join('employes e', 'e.id = p.employe_id', 'left')
             ->where('p.date_pointage >=', $periodStart)
@@ -230,13 +238,14 @@ class FinanceController extends BaseController
     private function buildDepartmentBreakdown(string $periodStart, string $periodEnd, string $departement = ''): array
     {
         $db = db_connect();
+        $dailySalaryExpr = $this->getDailySalaryExpression();
         $builder = $db->table('presences p')
             ->select(
                 "COALESCE(NULLIF(e.departement, ''), 'Non renseigné') AS departement,
                 SUM(CASE WHEN p.statut = 'absent' THEN 1 ELSE 0 END) AS absences,
                 SUM(CASE WHEN p.statut = 'retard' THEN IFNULL(p.retard_minutes, 0) ELSE 0 END) AS retard_minutes,
-                SUM(CASE WHEN p.statut = 'absent' THEN IFNULL(e.salaire_base, 0) / 22 ELSE 0 END) +
-                SUM(CASE WHEN p.statut = 'retard' THEN ((IFNULL(e.salaire_base, 0) / 22) / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_total"
+                SUM(CASE WHEN p.statut = 'absent' THEN {$dailySalaryExpr} ELSE 0 END) +
+                SUM(CASE WHEN p.statut = 'retard' THEN ({$dailySalaryExpr} / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_total"
             )
             ->join('employes e', 'e.id = p.employe_id', 'left')
             ->where('p.date_pointage >=', $periodStart)
@@ -293,5 +302,44 @@ class FinanceController extends BaseController
             ->getResultArray();
 
         return array_values(array_map(static fn(array $row): string => (string) $row['departement'], $rows));
+    }
+
+    private function getDailySalaryExpression(): string
+    {
+        $columns = $this->getEmployeeColumns();
+        $hasDaily = in_array('salaire_journalier', $columns, true);
+        $hasMonthly = in_array('salaire_base', $columns, true);
+
+        if ($hasDaily && $hasMonthly) {
+            return 'COALESCE(e.salaire_journalier, e.salaire_base / 22, 0)';
+        }
+
+        if ($hasDaily) {
+            return 'IFNULL(e.salaire_journalier, 0)';
+        }
+
+        if ($hasMonthly) {
+            return 'IFNULL(e.salaire_base / 22, 0)';
+        }
+
+        return '0';
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getEmployeeColumns(): array
+    {
+        if ($this->employeeColumnsCache !== null) {
+            return $this->employeeColumnsCache;
+        }
+
+        try {
+            $this->employeeColumnsCache = db_connect()->getFieldNames('employes');
+        } catch (\Throwable) {
+            $this->employeeColumnsCache = [];
+        }
+
+        return $this->employeeColumnsCache;
     }
 }

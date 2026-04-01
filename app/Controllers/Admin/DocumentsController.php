@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Admin;
@@ -43,9 +44,16 @@ class DocumentsController extends BaseController
         $employeId = $this->request->getGet('employe_id');
 
         $builder = $this->documentModel->builder();
-        $builder->select('documents_rh.*, employes.nom AS employe_nom, employes.prenom AS employe_prenom, utilisateurs.email AS uploader_email')
-            ->join('employes', 'employes.id = documents_rh.employe_id', 'left')
-            ->join('utilisateurs', 'utilisateurs.id = documents_rh.uploadé_par', 'left');
+        $builder->select('documents_rh.*, employes.nom AS employe_nom, employes.prenom AS employe_prenom')
+            ->join('employes', 'employes.id = documents_rh.employe_id', 'left');
+
+        $uploaderColumn = $this->documentModel->getUploaderColumn();
+        if ($uploaderColumn !== null) {
+            $builder->select('utilisateurs.email AS uploader_email')
+                ->join('utilisateurs', 'utilisateurs.id = documents_rh.' . $uploaderColumn, 'left');
+        } else {
+            $builder->select("'' AS uploader_email", false);
+        }
 
         if ($search !== '') {
             $builder->groupStart()
@@ -131,9 +139,15 @@ class DocumentsController extends BaseController
             'titre'        => $this->request->getPost('titre'),
             'type'         => $this->request->getPost('type'),
             'fichier'      => $newName,
+            'chemin_fichier' => 'uploads/documents/' . $newName,
             'description'  => $this->request->getPost('description'),
             'uploadé_par'  => $this->currentUser['user_id'] ?? null,
-            'date_creation'=> date('Y-m-d H:i:s'),
+            'uploade_par'  => $this->currentUser['user_id'] ?? null,
+            'uploaded_by'  => $this->currentUser['user_id'] ?? null,
+            'date_creation' => date('Y-m-d H:i:s'),
+            'date_upload'  => date('Y-m-d H:i:s'),
+            'nom_original' => $file->getClientName(),
+            'taille_octets' => $file->getSize(),
         ];
 
         $employeId = $this->request->getPost('employe_id');
@@ -141,7 +155,7 @@ class DocumentsController extends BaseController
             $data['employe_id'] = (int) $employeId;
         }
 
-        $this->documentModel->insert($data);
+        $this->documentModel->insert($this->documentModel->filterToExistingColumns($data));
 
         return redirect()->to('/admin/documents')->with('success', 'Document ajouté avec succès.');
     }
@@ -161,7 +175,7 @@ class DocumentsController extends BaseController
         return $this->renderView('admin/documents/edit', [
             'title'    => 'Modifier le document',
             'document' => $document,
-            'employees'=> $employees,
+            'employees' => $employees,
         ]);
     }
 
@@ -206,9 +220,12 @@ class DocumentsController extends BaseController
             $newName = $file->getRandomName();
             $file->move($this->documentModel->getUploadDir(), $newName);
             $data['fichier'] = $newName;
+            $data['chemin_fichier'] = 'uploads/documents/' . $newName;
+            $data['nom_original'] = $file->getClientName();
+            $data['taille_octets'] = $file->getSize();
         }
 
-        $this->documentModel->update($id, $data);
+        $this->documentModel->update($id, $this->documentModel->filterToExistingColumns($data));
 
         return redirect()->to('/admin/documents')->with('success', 'Document mis à jour avec succès.');
     }
@@ -223,15 +240,12 @@ class DocumentsController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $filePath = $this->documentModel->getFilePath($document['fichier']);
-        if (! is_file($filePath)) {
+        $filePath = $this->documentModel->ensureDownloadableFile($document);
+        if ($filePath === null || ! is_file($filePath)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $extension = pathinfo($document['fichier'], PATHINFO_EXTENSION);
-        $downloadName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $document['titre']);
-        $downloadName = substr($downloadName, 0, 200) ?: 'document';
-        $downloadName .= '.' . $extension;
+        $downloadName = $this->documentModel->getDownloadFilename($document, $filePath);
 
         return $this->response->download($filePath, null)->setFileName($downloadName);
     }

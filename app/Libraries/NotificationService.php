@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Libraries;
@@ -48,7 +49,7 @@ class NotificationService
         $admins = $this->notificationModel->getAdminUsers();
 
         foreach ($admins as $admin) {
-            $this->notifyUser($admin['id'], $type, $titre, $message, $url);
+            $this->notifyUser((int) $admin['id'], $type, $titre, $message, $url);
         }
     }
 
@@ -60,7 +61,7 @@ class NotificationService
         $user = $this->notificationModel->getUserByEmployeId($employeId);
 
         if ($user) {
-            $this->notifyUser($user['id'], $type, $titre, $message, $url);
+            $this->notifyUser((int) $user['id'], $type, $titre, $message, $url);
         }
     }
 
@@ -69,21 +70,29 @@ class NotificationService
      */
     public function notifyCongeDecision(array $demande): void
     {
-        $user = $this->notificationModel->getUserByEmployeId($demande['employe_id']);
+        $employeId = (int) ($demande['employe_id'] ?? 0);
+        if ($employeId <= 0) {
+            return;
+        }
+
+        $user = $this->notificationModel->getUserByEmployeId($employeId);
 
         if (!$user) {
             return;
         }
 
-        $statut = $demande['statut'] === 'approuve' ? 'approuvé' : 'refusé';
+        $status = (string) ($demande['statut'] ?? '');
+        $isApproved = in_array($status, ['approuvee', 'approuve'], true);
+        $statut = $isApproved ? 'approuve' : 'refuse';
         $message = "Votre congé du {$demande['date_debut']} au {$demande['date_fin']} a été {$statut}.";
-        if ($demande['statut'] === 'refuse' && !empty($demande['refus_motif'])) {
-            $message .= " Motif : {$demande['refus_motif']}";
+        $rejectionReason = $demande['refus_motif'] ?? $demande['commentaire_admin'] ?? null;
+        if (!$isApproved && !empty($rejectionReason)) {
+            $message .= " Motif : {$rejectionReason}";
         }
 
-        $type = $demande['statut'] === 'approuve' ? 'NOTIF_CONGE_APPROUVE' : 'NOTIF_CONGE_REFUSE';
+        $type = $isApproved ? 'NOTIF_CONGE_APPROUVE' : 'NOTIF_CONGE_REFUSE';
 
-        $this->notifyUser($user['id'], $type, 'Demande de congé traitée', $message, '/employe/leaves');
+        $this->notifyUser((int) $user['id'], $type, 'Demande de congé traitée', $message, '/employe/leaves');
     }
 
     /**

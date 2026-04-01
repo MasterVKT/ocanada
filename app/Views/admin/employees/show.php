@@ -28,6 +28,14 @@
 <?php endif; ?>
 
 <div class="row">
+    <?php
+    $dateNaissance = !empty($employe['date_naissance']) ? date('d/m/Y', strtotime((string) $employe['date_naissance'])) : 'Non renseignee';
+    $emailEmploye = (string) ($employe['email'] ?? '');
+    $telephonePrincipal = (string) (($employe['telephone_1'] ?? $employe['telephone'] ?? ''));
+    $salaireJournalier = isset($employe['salaire_journalier'])
+        ? (float) $employe['salaire_journalier']
+        : (isset($employe['salaire_base']) ? ((float) $employe['salaire_base'] / 22) : 0.0);
+    ?>
     <!-- Infos générales -->
     <div class="col-lg-8 mb-4">
         <div class="card">
@@ -65,20 +73,24 @@
                     <div class="col-md-6">
                         <div class="profile-field">
                             <div class="profile-field-label">Date de naissance</div>
-                            <div class="profile-field-value"><?= date('d/m/Y', strtotime($employe['date_naissance'])) ?></div>
+                            <div class="profile-field-value"><?= esc($dateNaissance) ?></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-field">
                             <div class="profile-field-label">Telephone</div>
-                            <div class="profile-field-value"><?= esc($employe['telephone'] ?: 'Non renseigne') ?></div>
+                            <div class="profile-field-value"><?= esc($telephonePrincipal !== '' ? $telephonePrincipal : 'Non renseigne') ?></div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="profile-field">
                             <div class="profile-field-label">Email</div>
                             <div class="profile-field-value">
-                                <a href="mailto:<?= esc($employe['email']) ?>"><?= esc($employe['email']) ?></a>
+                                <?php if ($emailEmploye !== ''): ?>
+                                    <a href="mailto:<?= esc($emailEmploye) ?>"><?= esc($emailEmploye) ?></a>
+                                <?php else: ?>
+                                    <span>Non renseigne</span>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -119,8 +131,8 @@
                     </div>
                     <div class="col-12">
                         <div class="profile-field">
-                            <div class="profile-field-label">Salaire de base</div>
-                            <div class="profile-field-value"><?= number_format((float) $employe['salaire_base'], 0, ',', ' ') ?> FCFA</div>
+                            <div class="profile-field-label">Salaire journalier brut</div>
+                            <div class="profile-field-value"><?= number_format($salaireJournalier, 0, ',', ' ') ?> FCFA</div>
                         </div>
                     </div>
                 </div>
@@ -215,7 +227,7 @@
                     </a>
                     <?php if ($employe['statut'] === 'actif'): ?>
                         <button type="button" class="btn btn-outline-danger btn-sm"
-                                onclick="confirmDeactivate(<?= $employe['id'] ?>, '<?= esc($employe['prenom'] . ' ' . $employe['nom']) ?>')">
+                            onclick="confirmDeactivate(<?= $employe['id'] ?>, '<?= esc($employe['prenom'] . ' ' . $employe['nom']) ?>')">
                             <i class="bi bi-person-dash me-1"></i>
                             Desactiver
                         </button>
@@ -227,20 +239,20 @@
 </div>
 
 <script>
-function confirmDeactivate(id, name) {
-    if (confirm(`Etes-vous sur de vouloir desactiver l employe "${name}" ?`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `<?= site_url('admin/employees/') ?>${id}/deactivate`;
+    function confirmDeactivate(id, name) {
+        if (confirm(`Etes-vous sur de vouloir desactiver l employe "${name}" ?`)) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `<?= site_url('admin/employees/') ?>${id}/deactivate`;
 
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = '<?= csrf_token() ?>';
-        csrfInput.value = '<?= csrf_hash() ?>';
-        form.appendChild(csrfInput);
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '<?= csrf_token() ?>';
+            csrfInput.value = '<?= csrf_hash() ?>';
+            form.appendChild(csrfInput);
 
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
 </script>

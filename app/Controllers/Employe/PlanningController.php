@@ -32,8 +32,37 @@ class PlanningController extends BaseController
             return $this->response->setStatusCode(403)->setBody(view('errors/403'));
         }
 
-        $week = $this->request->getVar('week') ?? date('W');
-        $year = $this->request->getVar('year') ?? date('Y');
+        $weekInput = (string) ($this->request->getGet('week') ?? '');
+        $yearInput = (string) ($this->request->getGet('year') ?? '');
+
+        // Accept both "week=12" and legacy "week=2026-12" formats.
+        if ($weekInput !== '' && preg_match('/^(\d{4})-(\d{1,2})$/', $weekInput, $matches) === 1) {
+            if ($yearInput === '') {
+                $yearInput = $matches[1];
+            }
+            $weekInput = $matches[2];
+        }
+
+        $week = filter_var($weekInput, FILTER_VALIDATE_INT, [
+            'options' => [
+                'min_range' => 1,
+                'max_range' => 53,
+            ],
+        ]);
+        $year = filter_var($yearInput, FILTER_VALIDATE_INT, [
+            'options' => [
+                'min_range' => 1970,
+                'max_range' => 2100,
+            ],
+        ]);
+
+        if ($week === false) {
+            $week = (int) date('W');
+        }
+
+        if ($year === false) {
+            $year = (int) date('o');
+        }
 
         // Get week start date
         $date = new \DateTime();
@@ -45,8 +74,8 @@ class PlanningController extends BaseController
         $days = [];
         for ($i = 0; $i < 7; $i++) {
             $currentDate = date('Y-m-d', strtotime($weekStart . " +{$i} days"));
-            $dayOfWeek = date('w', strtotime($currentDate));
-            
+            $dayOfWeek = (int) date('w', strtotime($currentDate));
+
             $days[$currentDate] = [
                 'date' => $currentDate,
                 'day' => date('l', strtotime($currentDate)),
@@ -62,12 +91,12 @@ class PlanningController extends BaseController
             ->join('shifts_modeles s', 's.id = aff.shift_id', 'left')
             ->where('aff.employe_id', $employeId)
             ->groupStart()
-                ->where('aff.date_debut IS NULL', null, false)
-                ->orWhere('aff.date_debut <=', $weekStart)
+            ->where('aff.date_debut IS NULL', null, false)
+            ->orWhere('aff.date_debut <=', $weekStart)
             ->groupEnd()
             ->groupStart()
-                ->where('aff.date_fin IS NULL', null, false)
-                ->orWhere('aff.date_fin >=', $weekEnd)
+            ->where('aff.date_fin IS NULL', null, false)
+            ->orWhere('aff.date_fin >=', $weekEnd)
             ->groupEnd()
             ->get()
             ->getResultArray();
@@ -89,19 +118,13 @@ class PlanningController extends BaseController
         }
 
         // Navigation
-        $prevWeek = $week - 1;
-        $prevYear = $year;
-        if ($prevWeek < 1) {
-            $prevWeek = 52;
-            $prevYear--;
-        }
+        $prevDate = (clone $date)->modify('-1 week');
+        $nextDate = (clone $date)->modify('+1 week');
 
-        $nextWeek = $week + 1;
-        $nextYear = $year;
-        if ($nextWeek > 52) {
-            $nextWeek = 1;
-            $nextYear++;
-        }
+        $prevWeek = (int) $prevDate->format('W');
+        $prevYear = (int) $prevDate->format('o');
+        $nextWeek = (int) $nextDate->format('W');
+        $nextYear = (int) $nextDate->format('o');
 
         $data = [
             'title' => 'Mon Planning',
@@ -132,7 +155,7 @@ class PlanningController extends BaseController
         }
 
         $monthParam = $this->request->getVar('month') ?? date('Y-m');
-        
+
         // Validate format
         if (!preg_match('/^\d{4}-\d{2}$/', $monthParam)) {
             $monthParam = date('Y-m');
@@ -148,12 +171,12 @@ class PlanningController extends BaseController
             ->join('shifts_modeles s', 's.id = aff.shift_id', 'left')
             ->where('aff.employe_id', $employeId)
             ->groupStart()
-                ->where('aff.date_debut IS NULL', null, false)
-                ->orWhere('aff.date_debut <=', $dateFin)
+            ->where('aff.date_debut IS NULL', null, false)
+            ->orWhere('aff.date_debut <=', $dateFin)
             ->groupEnd()
             ->groupStart()
-                ->where('aff.date_fin IS NULL', null, false)
-                ->orWhere('aff.date_fin >=', $dateDebut)
+            ->where('aff.date_fin IS NULL', null, false)
+            ->orWhere('aff.date_fin >=', $dateDebut)
             ->groupEnd()
             ->get()
             ->getResultArray();
@@ -175,7 +198,9 @@ class PlanningController extends BaseController
                 $dateStr = $currentDate->format('Y-m-d');
                 $inMonth = $currentDate->format('Y-m') === $monthParam;
 
-                $dayShifts = array_filter($shifts, fn($s) => 
+                $dayShifts = array_filter(
+                    $shifts,
+                    fn($s) =>
                     date('Y-m-d', strtotime($s['date_debut'] ?? date('Y-m-d'))) === $dateStr
                 );
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -22,14 +23,19 @@ class CongeModel extends Model
         'type_detail',
         'date_debut',
         'date_fin',
+        'jours_ouvrables',
         'nombre_jours',
         'motif',
         'statut',
-        'approuve_par',
-        'refus_motif',
-        'commentaire',
+        'date_soumission',
         'date_demande',
+        'date_traitement',
         'date_approbation',
+        'traite_par',
+        'approuve_par',
+        'commentaire_admin',
+        'commentaire',
+        'refus_motif',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -49,37 +55,9 @@ class CongeModel extends Model
         'type_conge'   => 'required|in_list[annuel,maladie,autre,maternite_paternite,sans_solde]',
         'date_debut'   => 'required|valid_date',
         'date_fin'     => 'required|valid_date',
-        'nombre_jours' => 'required|numeric|greater_than[0]',
+        'jours_ouvrables' => 'required|numeric|greater_than[0]',
         'motif'        => 'permit_empty|max_length[255]',
-        'statut'       => 'required|in_list[en_attente,approuve,refuse,annule]',
-        'approuve_par' => 'permit_empty|integer|is_not_unique[utilisateurs.id]',
-        'refus_motif'  => 'permit_empty|max_length[255]',
-        'commentaire'  => 'permit_empty|max_length[255]',
-    ];
-
-    protected $validationMessages = [
-        'employe_id' => [
-            'required' => 'L\'ID employé est obligatoire.',
-            'integer'  => 'L\'ID employé doit être un entier.',
-            'is_not_unique' => 'L\'employé n\'existe pas.',
-        ],
-        'type_conge' => [
-            'required' => 'Le type de congé est obligatoire.',
-            'in_list'  => 'Le type de congé doit être annuel, maladie, maternité/paternité, sans solde ou autre.',
-        ],
-        'date_debut' => [
-            'required'   => 'La date de début est obligatoire.',
-            'valid_date' => 'La date de début n\'est pas valide.',
-        ],
-        'date_fin' => [
-            'required'   => 'La date de fin est obligatoire.',
-            'valid_date' => 'La date de fin n\'est pas valide.',
-        ],
-        'nombre_jours' => [
-            'required' => 'Le nombre de jours est obligatoire.',
-            'numeric'  => 'Le nombre de jours doit être un nombre.',
-            'greater_than' => 'Le nombre de jours doit être positif.',
-        ],
+        'statut'       => 'required|in_list[en_attente,approuvee,approuve,refusee,refuse,annulee,annule]',
     ];
 
     protected $skipValidation       = false;
@@ -101,8 +79,10 @@ class CongeModel extends Model
      */
     public function getPendingRequests(): array
     {
+        $submittedAtColumn = $this->hasField('date_soumission') ? 'date_soumission' : 'date_demande';
+
         return $this->where('statut', 'en_attente')
-            ->orderBy('date_demande', 'ASC')
+            ->orderBy($submittedAtColumn, 'ASC')
             ->findAll();
     }
 
@@ -111,8 +91,10 @@ class CongeModel extends Model
      */
     public function getEmployeeRequests(int $employeId): array
     {
+        $submittedAtColumn = $this->hasField('date_soumission') ? 'date_soumission' : 'date_demande';
+
         return $this->where('employe_id', $employeId)
-            ->orderBy('date_demande', 'DESC')
+            ->orderBy($submittedAtColumn, 'DESC')
             ->findAll();
     }
 
@@ -121,7 +103,6 @@ class CongeModel extends Model
      */
     public function approveRequest(int $congeId, int $approuvePar): bool
     {
-        // Mettre à jour le solde de congé
         $conge = $this->find($congeId);
 
         if (!$conge || $conge['statut'] !== 'en_attente') {
@@ -129,33 +110,48 @@ class CongeModel extends Model
         }
 
         $soldeModel = model(SoldeCongeModel::class);
-        $soldeModel->updateAfterLeaveApproval(
-            $conge['employe_id'],
-            $conge['nombre_jours'],
-            $conge['type_conge']
-        );
+        $leaveDays = (float) ($conge['jours_ouvrables'] ?? $conge['nombre_jours'] ?? 0);
 
-        return $this->update($congeId, [
-            'statut' => 'approuve',
-            'approuve_par' => $approuvePar,
-            'date_approbation' => date('Y-m-d H:i:s'),
-        ]);
+        // Ne pas déduire les congés maternité et paternité du solde
+        if ($conge['type_conge'] !== 'maternite_paternite') {
+            $soldeModel->updateAfterLeaveApproval(
+                (int) $conge['employe_id'],
+                $leaveDays
+            );
+        }
+
+        $data = [
+            'statut' => $this->resolveStatusValue('approved'),
+        ];
+
+        $processedByColumn = $this->hasField('traite_par') ? 'traite_par' : 'approuve_par';
+        $processedAtColumn = $this->hasField('date_traitement') ? 'date_traitement' : 'date_approbation';
+
+        $data[$processedByColumn] = $approuvePar;
+        $data[$processedAtColumn] = date('Y-m-d H:i:s');
+
+        return $this->update($congeId, $data);
     }
 
     /**
      * Refuse une demande de congé
      */
-    public function rejectRequest(int $congeId, string $motif = '', int $refusePar = null): bool
+    public function rejectRequest(int $congeId, string $motif, int $refusePar = null): bool
     {
+        $commentColumn = $this->hasField('commentaire_admin') ? 'commentaire_admin' : ($this->hasField('refus_motif') ? 'refus_motif' : 'commentaire');
+
         $data = [
-            'statut' => 'refuse',
-            'refus_motif' => $motif,
+            'statut' => $this->resolveStatusValue('rejected'),
+            $commentColumn => $motif,
         ];
-        
+
         if ($refusePar) {
-            $data['approuve_par'] = $refusePar; // Using same field as approval for who processed it
+            $processedByColumn = $this->hasField('traite_par') ? 'traite_par' : 'approuve_par';
+            $processedAtColumn = $this->hasField('date_traitement') ? 'date_traitement' : 'date_approbation';
+            $data[$processedByColumn] = $refusePar;
+            $data[$processedAtColumn] = date('Y-m-d H:i:s');
         }
-        
+
         return $this->update($congeId, $data);
     }
 
@@ -166,40 +162,36 @@ class CongeModel extends Model
     {
         $conge = $this->find($congeId);
 
-        if (!$conge || $conge['statut'] !== 'approuve') {
+        if (!$conge || !in_array((string) ($conge['statut'] ?? ''), ['approuvee', 'approuve'], true)) {
             return false;
         }
 
-        // Restaurer le solde si nécessaire
-        $soldeModel = model(SoldeCongeModel::class);
-        $solde = $soldeModel->getCurrentSolde($conge['employe_id']);
+        // Restaurer le solde si nécessaire (sauf maternité/paternité)
+        if ($conge['type_conge'] !== 'maternite_paternite') {
+            $soldeModel = model(SoldeCongeModel::class);
+            $solde = $soldeModel->getCurrentSolde((int) $conge['employe_id']);
+            $leaveDays = (float) ($conge['jours_ouvrables'] ?? $conge['nombre_jours'] ?? 0);
 
-        if ($solde) {
-            if ($conge['type_conge'] === 'maladie') {
-                $newRestant = $solde['maladie_restant'] + $conge['nombre_jours'];
-                $newPris = max(0, $solde['maladie_pris'] - $conge['nombre_jours']);
-
-                $soldeModel->update($solde['id'], [
-                    'maladie_restant' => $newRestant,
-                    'maladie_pris' => $newPris,
-                ]);
-            } else {
-                $newRestant = $solde['restant'] + $conge['nombre_jours'];
-                $newPris = max(0, $solde['pris'] - $conge['nombre_jours']);
+            if ($solde) {
+                $newRestant = (float) $solde['jours_restants'] + $leaveDays;
+                $newPris = max(0, (float) $solde['jours_pris'] - $leaveDays);
 
                 $soldeModel->update($solde['id'], [
-                    'restant' => $newRestant,
-                    'pris' => $newPris,
+                    'jours_restants' => $newRestant,
+                    'jours_pris'    => $newPris,
                 ]);
             }
         }
 
         $data = [
-            'statut' => 'annule',
+            'statut' => $this->resolveStatusValue('cancelled'),
         ];
-        
+
         if ($annulePar) {
-            $data['approuve_par'] = $annulePar; // Using same field as approval for who processed it
+            $processedByColumn = $this->hasField('traite_par') ? 'traite_par' : 'approuve_par';
+            $processedAtColumn = $this->hasField('date_traitement') ? 'date_traitement' : 'date_approbation';
+            $data[$processedByColumn] = $annulePar;
+            $data[$processedAtColumn] = date('Y-m-d H:i:s');
         }
 
         return $this->update($congeId, $data);
@@ -218,10 +210,45 @@ class CongeModel extends Model
      */
     public function getPendingSinceHours(int $hours): array
     {
+        $submittedAtColumn = $this->hasField('date_soumission') ? 'date_soumission' : 'date_demande';
         $cutoffTime = date('Y-m-d H:i:s', strtotime("-{$hours} hours"));
 
         return $this->where('statut', 'en_attente')
-            ->where('date_demande <', $cutoffTime)
+            ->where($submittedAtColumn . ' <', $cutoffTime)
             ->findAll();
+    }
+
+    private function hasField(string $field): bool
+    {
+        return $this->db->fieldExists($field, $this->table);
+    }
+
+    private function resolveStatusValue(string $semantic): string
+    {
+        $modern = [
+            'approved' => 'approuvee',
+            'rejected' => 'refusee',
+            'cancelled' => 'annulee',
+        ];
+
+        $legacy = [
+            'approved' => 'approuve',
+            'rejected' => 'refuse',
+            'cancelled' => 'annule',
+        ];
+
+        foreach ($this->db->getFieldData($this->table) as $field) {
+            if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                $type = strtolower($field->type);
+                if (str_contains($type, $modern[$semantic])) {
+                    return $modern[$semantic];
+                }
+                if (str_contains($type, $legacy[$semantic])) {
+                    return $legacy[$semantic];
+                }
+            }
+        }
+
+        return $modern[$semantic];
     }
 }

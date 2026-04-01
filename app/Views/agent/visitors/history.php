@@ -14,13 +14,12 @@
             <form method="GET" class="row g-3 align-items-end">
                 <div class="col-md-3">
                     <label for="month" class="form-label">Mois</label>
-                    <input 
-                        type="month" 
-                        class="form-control" 
+                    <input
+                        type="month"
+                        class="form-control"
                         id="month"
                         name="month"
-                        value="<?= $month ?>"
-                    >
+                        value="<?= $month ?>">
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary w-100">
@@ -65,7 +64,7 @@
                         <small><strong>Mois sélectionné</strong></small>
                     </div>
                     <div class="h3 mb-0">
-                        <?php 
+                        <?php
                         $monthFormat = strtotime($month . '-01');
                         echo date('M Y', $monthFormat) === 'Jan 99' ? 'Sélectionnez' : date('M Y', $monthFormat);
                         ?>
@@ -128,10 +127,19 @@
                                 <td>
                                     <?php
                                     if ($v['heure_arrivee'] && $v['heure_depart']) {
-                                        $arrival = new DateTime($v['date_creation']);
-                                        $departure = new DateTime($v['date_modification']);
-                                        $interval = $arrival->diff($departure);
-                                        $duration = sprintf('%02d:%02d', $interval->h + ($interval->days * 24), $interval->i);
+                                        $arrivalTs = strtotime('1970-01-01 ' . $v['heure_arrivee']);
+                                        $departureTs = strtotime('1970-01-01 ' . $v['heure_depart']);
+
+                                        if ($arrivalTs !== false && $departureTs !== false && $departureTs < $arrivalTs) {
+                                            $departureTs += 86400;
+                                        }
+
+                                        if ($arrivalTs !== false && $departureTs !== false) {
+                                            $durationSeconds = max(0, $departureTs - $arrivalTs);
+                                            $duration = sprintf('%02d:%02d', intdiv($durationSeconds, 3600), intdiv($durationSeconds % 3600, 60));
+                                        } else {
+                                            $duration = '--';
+                                        }
                                         echo '<small>' . $duration . '</small>';
                                     } else {
                                         echo '<small class="text-muted">--</small>';
@@ -151,12 +159,15 @@
     .border-left-info {
         border-left: 4px solid #0dcaf0 !important;
     }
+
     .border-left-success {
         border-left: 4px solid #198754 !important;
     }
+
     .border-left-primary {
         border-left: 4px solid #007bff !important;
     }
+
     .text-monospace {
         font-family: monospace;
     }

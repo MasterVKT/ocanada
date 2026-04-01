@@ -29,13 +29,12 @@ class PlanningController extends BaseController
      */
     public function index()
     {
-        $week = $this->request->getVar('week') ?? date('W');
-        $year = $this->request->getVar('year') ?? date('Y');
+        [$week, $year] = $this->resolveWeekYearFromRequest();
 
         // Get week start date
-        $date = new \DateTime();
-        $date->setISODate($year, $week, 1);
-        $weekStart = $date->format('Y-m-d');
+        $weekCursor = new \DateTime();
+        $weekCursor->setISODate($year, $week, 1);
+        $weekStart = $weekCursor->format('Y-m-d');
         $weekEnd = date('Y-m-d', strtotime($weekStart . ' +6 days'));
 
         // Get all shifts
@@ -51,12 +50,12 @@ class PlanningController extends BaseController
             ->join('shifts_modeles s', 's.id = aff.shift_id', 'left')
             ->join('employes e', 'e.id = aff.employe_id', 'left')
             ->groupStart()
-                ->where('aff.date_debut IS NULL', null, false)
-                ->orWhere('aff.date_debut <=', $weekStart)
+            ->where('aff.date_debut IS NULL', null, false)
+            ->orWhere('aff.date_debut <=', $weekStart)
             ->groupEnd()
             ->groupStart()
-                ->where('aff.date_fin IS NULL', null, false)
-                ->orWhere('aff.date_fin >=', $weekEnd)
+            ->where('aff.date_fin IS NULL', null, false)
+            ->orWhere('aff.date_fin >=', $weekEnd)
             ->groupEnd()
             ->orderBy('e.nom', 'ASC')
             ->orderBy('s.heure_debut', 'ASC')
@@ -66,28 +65,24 @@ class PlanningController extends BaseController
         // Build week array with YYYY-MM-DD for each day
         $days = [];
         for ($i = 0; $i < 7; $i++) {
-            $date = date('Y-m-d', strtotime($weekStart . " +{$i} days"));
-            $days[$date] = [
-                'date' => $date,
-                'day' => date('l', strtotime($date)),
-                'dayFr' => $this->getDayNameFr(date('w', strtotime($date))),
+            $currentDate = date('Y-m-d', strtotime($weekStart . " +{$i} days"));
+            $days[$currentDate] = [
+                'date' => $currentDate,
+                'day' => date('l', strtotime($currentDate)),
+                'dayFr' => $this->getDayNameFr((int) date('w', strtotime($currentDate))),
             ];
         }
 
         // Navigation previous/next week
-        $prevWeek = $week - 1;
-        $prevYear = $year;
-        if ($prevWeek < 1) {
-            $prevWeek = 52;
-            $prevYear--;
-        }
+        $prevCursor = clone $weekCursor;
+        $prevCursor->modify('-7 days');
+        $prevWeek = (int) $prevCursor->format('W');
+        $prevYear = (int) $prevCursor->format('o');
 
-        $nextWeek = $week + 1;
-        $nextYear = $year;
-        if ($nextWeek > 52) {
-            $nextWeek = 1;
-            $nextYear++;
-        }
+        $nextCursor = clone $weekCursor;
+        $nextCursor->modify('+7 days');
+        $nextWeek = (int) $nextCursor->format('W');
+        $nextYear = (int) $nextCursor->format('o');
 
         $data = [
             'title' => 'Planning Hebdomadaire',
@@ -105,7 +100,7 @@ class PlanningController extends BaseController
             'next_year' => $nextYear,
         ];
 
-        return view('admin/planning/index', $data);
+        return $this->renderView('admin/planning/index', array_merge(['title' => 'Planning hebdomadaire'], $data));
     }
 
     /**
@@ -132,7 +127,7 @@ class PlanningController extends BaseController
             'shifts' => $shifts,
         ];
 
-        return view('admin/planning/shifts', $data);
+        return $this->renderView('admin/planning/shifts', array_merge(['title' => 'Gestion des shifts'], $data));
     }
 
     /**
@@ -153,22 +148,22 @@ class PlanningController extends BaseController
 
         if (!$this->shiftModel->validate($data)) {
             return redirect()->back()
-                           ->withInput()
-                           ->with('errors', $this->shiftModel->errors());
+                ->withInput()
+                ->with('errors', $this->shiftModel->errors());
         }
 
         $shiftId = $this->shiftModel->insert($data);
 
         // Audit log
         $this->auditLog->log(
-            auth()->id(),
+            $this->getCurrentUserId(),
             'CREATION_SHIFT',
             'Création d\'un nouveau shift: ' . $data['nom'],
             ['shift_id' => $shiftId, 'data' => $data]
         );
 
         return redirect()->to('/admin/planning/shifts')
-                       ->with('success', 'Shift créé avec succès');
+            ->with('success', 'Shift créé avec succès');
     }
 
     /**
@@ -196,22 +191,22 @@ class PlanningController extends BaseController
 
         if (!$this->shiftModel->validate($data)) {
             return redirect()->back()
-                           ->withInput()
-                           ->with('errors', $this->shiftModel->errors());
+                ->withInput()
+                ->with('errors', $this->shiftModel->errors());
         }
 
         $this->shiftModel->update($shiftId, $data);
 
         // Audit log
         $this->auditLog->log(
-            auth()->id(),
+            $this->getCurrentUserId(),
             'MODIFICATION_SHIFT',
             'Modification du shift: ' . $data['nom'],
             ['shift_id' => $shiftId, 'old_data' => $shift, 'new_data' => $data]
         );
 
         return redirect()->to('/admin/planning/shifts')
-                       ->with('success', 'Shift modifié avec succès');
+            ->with('success', 'Shift modifié avec succès');
     }
 
     /**
@@ -229,21 +224,21 @@ class PlanningController extends BaseController
         // Check if has active affectations
         if ($this->shiftModel->hasActiveAffectations($shiftId)) {
             return redirect()->back()
-                           ->with('error', 'Impossible de supprimer ce shift: il a des affectations actives');
+                ->with('error', 'Impossible de supprimer ce shift: il a des affectations actives');
         }
 
         $this->shiftModel->delete($shiftId);
 
         // Audit log
         $this->auditLog->log(
-            auth()->id(),
+            $this->getCurrentUserId(),
             'SUPPRESSION_SHIFT',
             'Suppression du shift: ' . $shift['nom'],
             ['shift_id' => $shiftId, 'data' => $shift]
         );
 
         return redirect()->to('/admin/planning/shifts')
-                       ->with('success', 'Shift supprimé avec succès');
+            ->with('success', 'Shift supprimé avec succès');
     }
 
     /**
@@ -279,7 +274,7 @@ class PlanningController extends BaseController
 
         // Audit log
         $this->auditLog->log(
-            auth()->id(),
+            $this->getCurrentUserId(),
             'AFFECTATION_SHIFT',
             "Affectation de {$employe['prenom']} {$employe['nom']} au shift {$shift['nom']}",
             [
@@ -300,8 +295,7 @@ class PlanningController extends BaseController
      */
     public function getWeekDates()
     {
-        $week = $this->request->getVar('week') ?? date('W');
-        $year = $this->request->getVar('year') ?? date('Y');
+        [$week, $year] = $this->resolveWeekYearFromRequest();
 
         $date = new \DateTime();
         $date->setISODate($year, $week, 1);
@@ -315,6 +309,53 @@ class PlanningController extends BaseController
             'week_start' => $weekStart,
             'week_end' => $weekEnd,
         ]);
+    }
+
+    /**
+     * Normalize week/year inputs to safe ISO integer values.
+     *
+     * @return array{0:int,1:int}
+     */
+    private function resolveWeekYearFromRequest(): array
+    {
+        $weekInput = (string) ($this->request->getGet('week') ?? '');
+        $yearInput = (string) ($this->request->getGet('year') ?? '');
+
+        // Accept legacy format: week=2026-14
+        if ($weekInput !== '' && preg_match('/^(\d{4})-(\d{1,2})$/', $weekInput, $matches) === 1) {
+            if ($yearInput === '') {
+                $yearInput = $matches[1];
+            }
+            $weekInput = $matches[2];
+        }
+
+        $week = filter_var($weekInput, FILTER_VALIDATE_INT, [
+            'options' => [
+                'min_range' => 1,
+                'max_range' => 53,
+            ],
+        ]);
+        $year = filter_var($yearInput, FILTER_VALIDATE_INT, [
+            'options' => [
+                'min_range' => 1970,
+                'max_range' => 2100,
+            ],
+        ]);
+
+        if ($week === false) {
+            $week = (int) date('W');
+        }
+
+        if ($year === false) {
+            $year = (int) date('o');
+        }
+
+        return [(int) $week, (int) $year];
+    }
+
+    private function getCurrentUserId(): int
+    {
+        return (int) ($this->currentUser['user_id'] ?? $this->session->get('user_id') ?? 0);
     }
 
     /**

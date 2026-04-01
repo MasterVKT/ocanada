@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-6 mb-0">
                             <label class="form-label text-muted small">Entreprise</label>
-                            <p class="mb-0"><?= esc($visitor['entreprise'] ?? 'N/A') ?></p>
+                            <p class="mb-0"><?= esc($visitor['entreprise'] ?? 'Non renseignee') ?></p>
                         </div>
                     </div>
                 </div>
@@ -142,9 +142,9 @@
                     <div class="mb-3">
                         <strong><?= esc($visitor['badge_id']) ?></strong>
                     </div>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=<?= urlencode($visitor['badge_id']) ?>" 
-                         alt="QR Code" class="img-fluid border rounded mb-3" style="max-width: 200px;">
-                    
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=<?= urlencode($visitor['badge_id']) ?>"
+                        alt="QR Code" class="img-fluid border rounded mb-3" style="max-width: 200px;">
+
                     <a href="<?= base_url('admin/visitors/' . $visitor['id'] . '/badge') ?>" class="btn btn-sm btn-outline-primary w-100 mb-2">
                         <i class="bi bi-printer"></i> Imprimer
                     </a>
@@ -158,27 +158,29 @@
 </div>
 
 <script>
-function checkoutVisitor(visitorId) {
-    if (!confirm('Confirmer la sortie de ce visiteur ?')) return;
+    function checkoutVisitor(visitorId) {
+        if (!confirm('Confirmer la sortie de ce visiteur ?')) return;
 
-    fetch(`<?= base_url('admin/visitors') ?>/${visitorId}/checkout`, {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(r => r.json())
-    .then(json => {
-        if (json.success) {
-            location.reload();
-        } else {
-            alert('Erreur: ' + json.message);
-        }
-    });
-}
+        fetch(`<?= base_url('admin/visitors') ?>/${visitorId}/checkout`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(r => r.json())
+            .then(json => {
+                if (json.success) {
+                    location.reload();
+                } else {
+                    alert('Erreur: ' + json.message);
+                }
+            });
+    }
 
-function downloadQRCode(badgeId) {
-    const link = document.createElement('a');
-    link.href = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(badgeId)}`;
-    link.download = `badge_${badgeId}.png`;
-    link.click();
-}
+    function downloadQRCode(badgeId) {
+        const link = document.createElement('a');
+        link.href = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(badgeId)}`;
+        link.download = `badge_${badgeId}.png`;
+        link.click();
+    }
 </script>

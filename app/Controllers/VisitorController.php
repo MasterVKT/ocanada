@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers;
@@ -118,10 +119,17 @@ class VisitorController extends BaseController
             ])->setStatusCode(404);
         }
 
+        if ($this->isDepartedStatus((string) ($visiteur['statut'] ?? ''))) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Visiteur déjà parti',
+            ])->setStatusCode(409);
+        }
+
         // Update departure time
         $this->visiteurModel->update($visiteurId, [
             'heure_depart'      => date('H:i:s'),
-            'statut'            => 'departi',
+            'statut'            => $this->resolveDepartedStatusValue(),
             'date_modification' => date('Y-m-d H:i:s'),
         ]);
 
@@ -160,8 +168,10 @@ class VisitorController extends BaseController
         $page      = (int) ($this->request->getGet('page') ?? 1);
 
         // Validate dates
-        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateDebut) || 
-            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateFin)) {
+        if (
+            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateDebut) ||
+            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateFin)
+        ) {
             $dateDebut = date('Y-m-d', strtotime('-30 days'));
             $dateFin   = date('Y-m-d');
         }
@@ -258,11 +268,11 @@ class VisitorController extends BaseController
         $stats = [
             'total'   => $builder->where('DATE(date_creation)', $date)->countAllResults(),
             'presents' => (clone $builder)->where('DATE(date_creation)', $date)
-                                          ->where('statut', 'present')
-                                          ->countAllResults(),
+                ->where('statut', 'present')
+                ->countAllResults(),
             'partis'  => (clone $builder)->where('DATE(date_creation)', $date)
-                                          ->where('statut', 'departi')
-                                          ->countAllResults(),
+                ->whereIn('statut', ['departi', 'sorti', 'parti'])
+                ->countAllResults(),
         ];
 
         // Get daily summary by motif
@@ -286,5 +296,21 @@ class VisitorController extends BaseController
     private function getIpAddress(): string
     {
         return $this->request->getIPAddress() ?? '';
+    }
+
+    private function isDepartedStatus(string $status): bool
+    {
+        return in_array($status, ['departi', 'sorti', 'parti'], true);
+    }
+
+    private function resolveDepartedStatusValue(): string
+    {
+        foreach ($this->db->getFieldData('visiteurs') as $field) {
+            if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                return str_contains(strtolower($field->type), 'sorti') ? 'sorti' : 'departi';
+            }
+        }
+
+        return 'departi';
     }
 }

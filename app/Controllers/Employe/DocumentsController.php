@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Employe;
@@ -32,7 +33,10 @@ class DocumentsController extends BaseController
 
         $builder = $this->documentModel->builder();
         $builder->select('documents_rh.*')
-            ->where('(documents_rh.employe_id IS NULL OR documents_rh.employe_id = ' . (int) $employeId . ')');
+            ->groupStart()
+            ->where('documents_rh.employe_id IS NULL', null, false)
+            ->orWhere('documents_rh.employe_id', (int) $employeId)
+            ->groupEnd();
 
         $documents = $builder->orderBy('documents_rh.date_creation', 'DESC')->get()->getResult('array');
 
@@ -45,7 +49,7 @@ class DocumentsController extends BaseController
     /**
      * Téléchargement d'un document (doit être accessible à l'utilisateur)
      */
-    public function download(int $id)
+    public function download(int $id): ResponseInterface
     {
         $document = $this->documentModel->find($id);
         if (! $document) {
@@ -57,15 +61,12 @@ class DocumentsController extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $filePath = $this->documentModel->getFilePath($document['fichier']);
-        if (! is_file($filePath)) {
+        $filePath = $this->documentModel->ensureDownloadableFile($document);
+        if ($filePath === null || ! is_file($filePath)) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $extension = pathinfo($document['fichier'], PATHINFO_EXTENSION);
-        $downloadName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $document['titre']);
-        $downloadName = substr($downloadName, 0, 200) ?: 'document';
-        $downloadName .= '.' . $extension;
+        $downloadName = $this->documentModel->getDownloadFilename($document, $filePath);
 
         return $this->response->download($filePath, null)->setFileName($downloadName);
     }

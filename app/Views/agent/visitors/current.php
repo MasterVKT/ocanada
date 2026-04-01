@@ -62,15 +62,15 @@
                             </div>
                             <div class="mb-0">
                                 <strong class="text-muted">Entreprise:</strong>
-                                <p class="mb-0"><?= esc($v['entreprise'] ?? 'N/A') ?></p>
+                                <p class="mb-0"><?= esc($v['entreprise'] ?? 'Non renseignee') ?></p>
                             </div>
                         </div>
                         <div class="card-footer bg-light">
                             <div class="small mb-2">
                                 <i class="bi bi-clock"></i> Arrivée: <?= substr($v['heure_arrivee'], 0, 5) ?>
                             </div>
-                            <button 
-                                class="btn btn-sm btn-warning w-100" 
+                            <button
+                                class="btn btn-sm btn-warning w-100"
                                 onclick="checkoutVisitor(<?= $v['id'] ?>, '<?= esc($v['prenom']) ?>')">
                                 <i class="bi bi-box-arrow-right"></i> Marquer comme parti
                             </button>
@@ -83,20 +83,22 @@
 </div>
 
 <script>
-function checkoutVisitor(visitorId, visitorName) {
-    if (!confirm(`Confirmer le départ de ${visitorName} ?`)) return;
+    function checkoutVisitor(visitorId, visitorName) {
+        if (!confirm(`Confirmer le départ de ${visitorName} ?`)) return;
 
-    fetch(`<?= base_url('agent/visitors') ?>/${visitorId}/checkout`, {
-        method: 'POST',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(r => r.json())
-    .then(json => {
-        if (json.success) {
-            location.reload();
-        } else {
-            alert('Erreur: ' + json.message);
-        }
-    });
-}
+        fetch(`<?= base_url('agent/visitors') ?>/${visitorId}/checkout`, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(r => r.json())
+            .then(json => {
+                if (json.success) {
+                    location.reload();
+                } else {
+                    alert('Erreur: ' + json.message);
+                }
+            });
+    }
 </script>

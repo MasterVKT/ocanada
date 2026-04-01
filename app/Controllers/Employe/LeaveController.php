@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Employe;
@@ -194,7 +195,7 @@ class LeaveController extends BaseController
             "Demande de congé {$type} du {$dateDebut} au {$dateFin}",
             'demandes_conge',
             $this->congeModel->getInsertID(),
-            auth()->user()->id,
+            isset($this->currentUser['id']) ? (int) $this->currentUser['id'] : null,
             $this->request->getIPAddress()
         );
 
@@ -307,13 +308,27 @@ class LeaveController extends BaseController
      */
     public function calculateWorkingDays(): ResponseInterface
     {
-        $payload = $this->request->getJSON(true);
+        $payload = [];
+        $contentType = strtolower($this->request->getHeaderLine('Content-Type'));
+
+        if (str_contains($contentType, 'application/json')) {
+            try {
+                $parsed = $this->request->getJSON(true);
+                if (is_array($parsed)) {
+                    $payload = $parsed;
+                }
+            } catch (\Throwable $e) {
+                $payload = [];
+            }
+        }
 
         $dateDebut = $payload['date_debut'] ?? $this->request->getGet('date_debut') ?? $this->request->getPost('date_debut');
         $dateFin   = $payload['date_fin'] ?? $this->request->getGet('date_fin') ?? $this->request->getPost('date_fin');
 
-        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateDebut) || 
-            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateFin)) {
+        if (
+            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateDebut) ||
+            !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dateFin)
+        ) {
             return $this->response->setJSON([
                 'success' => false,
                 'message' => 'Format de date invalide',

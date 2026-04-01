@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/main'); ?>
-
-<?php $this->section('content'); ?>
-
 <div class="container-fluid mt-4">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -18,8 +14,8 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-4">
-                    <a href="<?= base_url('/employe/planning?week=' . $prev_week . '&year=' . $prev_year) ?>" 
-                       class="btn btn-outline-secondary btn-sm">
+                    <a href="<?= base_url('/employe/planning?week=' . $prev_week . '&year=' . $prev_year) ?>"
+                        class="btn btn-outline-secondary btn-sm">
                         <i class="bi bi-chevron-left"></i> Semaine Précédente
                     </a>
                 </div>
@@ -33,8 +29,8 @@
                     </h5>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="<?= base_url('/employe/planning?week=' . $next_week . '&year=' . $next_year) ?>" 
-                       class="btn btn-outline-secondary btn-sm">
+                    <a href="<?= base_url('/employe/planning?week=' . $next_week . '&year=' . $next_year) ?>"
+                        class="btn btn-outline-secondary btn-sm">
                         Semaine Suivante <i class="bi bi-chevron-right"></i>
                     </a>
                 </div>
@@ -63,18 +59,18 @@
                                 <div class="alert alert-info mb-0">
                                     <i class="bi bi-clock"></i>
                                     <strong>
-                                        <?= date('H:i', strtotime($day['shift']['heure_debut'])) ?> - 
+                                        <?= date('H:i', strtotime($day['shift']['heure_debut'])) ?> -
                                         <?= date('H:i', strtotime($day['shift']['heure_fin'])) ?>
                                     </strong>
                                     <br>
                                     <small>
-                                        <?php 
-                                            $start = strtotime($day['shift']['heure_debut']);
-                                            $end = strtotime($day['shift']['heure_fin']);
-                                            if ($end < $start) $end += 86400;
-                                            $hours = (int)(($end - $start) / 3600);
-                                            $minutes = (int)((($end - $start) % 3600) / 60);
-                                            echo $hours . 'h' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
+                                        <?php
+                                        $start = strtotime($day['shift']['heure_debut']);
+                                        $end = strtotime($day['shift']['heure_fin']);
+                                        if ($end < $start) $end += 86400;
+                                        $hours = (int)(($end - $start) / 3600);
+                                        $minutes = (int)((($end - $start) % 3600) / 60);
+                                        echo $hours . 'h' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
                                         ?>
                                     </small>
                                 </div>
@@ -103,28 +99,28 @@
                         <div class="col-md-4">
                             <h6 class="text-muted">Jours assignés</h6>
                             <h3>
-                                <?php 
-                                    $assignedDays = count(array_filter($days, fn($d) => $d['shift']));
-                                    echo $assignedDays;
+                                <?php
+                                $assignedDays = count(array_filter($days, fn($d) => $d['shift']));
+                                echo $assignedDays;
                                 ?>
                             </h3>
                         </div>
                         <div class="col-md-4">
                             <h6 class="text-muted">Heures totales</h6>
                             <h3>
-                                <?php 
-                                    $totalMinutes = 0;
-                                    foreach ($days as $day) {
-                                        if ($day['shift']) {
-                                            $start = strtotime($day['shift']['heure_debut']);
-                                            $end = strtotime($day['shift']['heure_fin']);
-                                            if ($end < $start) $end += 86400;
-                                            $totalMinutes += ($end - $start) / 60;
-                                        }
+                                <?php
+                                $totalMinutes = 0;
+                                foreach ($days as $day) {
+                                    if ($day['shift']) {
+                                        $start = strtotime($day['shift']['heure_debut']);
+                                        $end = strtotime($day['shift']['heure_fin']);
+                                        if ($end < $start) $end += 86400;
+                                        $totalMinutes += ($end - $start) / 60;
                                     }
-                                    $hours = (int)($totalMinutes / 60);
-                                    $minutes = (int)($totalMinutes % 60);
-                                    echo $hours . 'h' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
+                                }
+                                $hours = (int)($totalMinutes / 60);
+                                $minutes = (int)($totalMinutes % 60);
+                                echo $hours . 'h' . str_pad($minutes, 2, '0', STR_PAD_LEFT);
                                 ?>
                             </h3>
                         </div>
@@ -140,5 +136,3 @@
         </div>
     </div>
 </div>
-
-<?php $this->endSection(); ?>

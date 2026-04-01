@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -55,7 +56,7 @@ class VisiteurModel extends Model
         'heure_arrivee'   => 'permit_empty|regex_match[/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/]',
         'heure_depart'    => 'permit_empty|regex_match[/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/]',
         'badge_id'        => 'permit_empty|max_length[50]',
-        'statut'          => 'required|in_list[present,departi]',
+        'statut'          => 'required|in_list[present,departi,sorti,parti]',
         'commentaire'     => 'permit_empty|max_length[255]',
     ];
 
@@ -100,7 +101,7 @@ class VisiteurModel extends Model
         ],
         'statut' => [
             'required' => 'Le statut est obligatoire.',
-            'in_list'  => 'Le statut doit être present ou departi.',
+            'in_list'  => 'Le statut doit être present, departi, sorti ou parti.',
         ],
         'commentaire' => [
             'max_length' => 'Le commentaire ne peut pas dépasser 255 caractères.',
@@ -151,7 +152,7 @@ class VisiteurModel extends Model
     {
         return $this->update($visiteurId, [
             'heure_depart' => date('H:i'),
-            'statut' => 'departi',
+            'statut' => $this->resolveDepartedStatusValue(),
         ]);
     }
 
@@ -180,7 +181,7 @@ class VisiteurModel extends Model
             $builder->where('DATE(date_creation) <=', $dateFin);
         }
 
-            return $builder->get()->getResultArray();
+        return $builder->get()->getResultArray();
     }
 
     /**
@@ -190,14 +191,23 @@ class VisiteurModel extends Model
     {
         $cutoffTime = date('H:i', strtotime("-{$maxHours} hours"));
 
-        return $this->where('statut', 'present')
-            ->where('heure_arrivee <', $cutoffTime)
-            ->set([
-                'heure_depart' => date('H:i'),
-                'statut' => 'departi',
-                'commentaire' => 'Fermeture automatique - visite longue'
-            ])
-            ->update();
+        $builder = $this->builder();
+        $builder->where('statut', 'present')
+            ->where('heure_arrivee <', $cutoffTime);
+
+        $count = (int) $builder->countAllResults(false);
+
+        if ($count === 0) {
+            return 0;
+        }
+
+        $builder->set([
+            'heure_depart' => date('H:i'),
+            'statut' => $this->resolveDepartedStatusValue(),
+            'commentaire' => 'Fermeture automatique - visite longue'
+        ])->update();
+
+        return $count;
     }
 
     /**
@@ -206,5 +216,16 @@ class VisiteurModel extends Model
     public function countPresent(): int
     {
         return $this->where('statut', 'present')->countAllResults();
+    }
+
+    private function resolveDepartedStatusValue(): string
+    {
+        foreach ($this->db->getFieldData('visiteurs') as $field) {
+            if (($field->name ?? null) === 'statut' && isset($field->type) && is_string($field->type)) {
+                return str_contains(strtolower($field->type), 'sorti') ? 'sorti' : 'departi';
+            }
+        }
+
+        return 'departi';
     }
 }

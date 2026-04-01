@@ -1,7 +1,3 @@
-<?php $this->extend('layouts/main'); ?>
-
-<?php $this->section('content'); ?>
-
 <div class="container-fluid mt-4">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -46,8 +42,8 @@
         <div class="row mb-4">
             <div class="col-md-12">
                 <div class="progress" style="height: 20px;">
-                    <div class="progress-bar bg-warning" role="progressbar" 
-                         style="width: <?= round(($solde['pris'] / $solde['solde_annuel']) * 100) ?>%">
+                    <div class="progress-bar bg-warning" role="progressbar"
+                        style="width: <?= round(($solde['pris'] / $solde['solde_annuel']) * 100) ?>%">
                         <?= round(($solde['pris'] / $solde['solde_annuel']) * 100) ?>%
                     </div>
                 </div>
@@ -107,8 +103,8 @@
                             <tr class="<?= $request['statut'] === 'refuse' ? 'table-danger' : '' ?>">
                                 <td>
                                     <strong>
-                                        <?= date('d/m', strtotime($request['date_debut'])) ?> 
-                                        à 
+                                        <?= date('d/m', strtotime($request['date_debut'])) ?>
+                                        à
                                         <?= date('d/m/Y', strtotime($request['date_fin'])) ?>
                                     </strong>
                                 </td>
@@ -182,5 +178,3 @@
         </nav>
     <?php endif; ?>
 </div>
-
-<?php $this->endSection(); ?>

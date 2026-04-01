@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -53,7 +54,7 @@ class PresenceModel extends Model
         'retard_minutes'            => 'permit_empty|integer|greater_than_equal_to[0]',
         'corrige'                   => 'permit_empty|in_list[0,1]',
         'motif_correction'          => 'permit_empty|max_length[255]',
-        'corrige_par_utilisateur_id'=> 'permit_empty|integer|is_not_unique[utilisateurs.id]',
+        'corrige_par_utilisateur_id' => 'permit_empty|integer|is_not_unique[utilisateurs.id]',
     ];
 
     protected $validationMessages = [
@@ -104,6 +105,16 @@ class PresenceModel extends Model
     protected $afterDelete    = [];
 
     /**
+     * Prepare a query with employee identity columns.
+     */
+    private function selectWithEmployeIdentity(): \CodeIgniter\Database\BaseBuilder
+    {
+        return $this->builder()
+            ->select('presences.*, employes.prenom, employes.nom, employes.matricule')
+            ->join('employes', 'employes.id = presences.employe_id', 'left');
+    }
+
+    /**
      * Enregistre un pointage arrivée
      */
     public function pointageArrivee(int $employeId, string $heureArrivee): bool
@@ -121,7 +132,7 @@ class PresenceModel extends Model
 
         $data = [
             'employe_id'   => $employeId,
-            'date_pointage'=> $date,
+            'date_pointage' => $date,
             'heure_pointage' => $heureArrivee,
             'statut'       => 'present', // Temporaire, sera recalculé
         ];
@@ -158,8 +169,12 @@ class PresenceModel extends Model
      */
     public function getByDate(string $date): array
     {
-        return $this->where('date_pointage', $date)
-            ->findAll();
+        return $this->selectWithEmployeIdentity()
+            ->where('DATE(presences.date_pointage)', $date)
+            ->orderBy('employes.nom', 'ASC')
+            ->orderBy('employes.prenom', 'ASC')
+            ->get()
+            ->getResultArray();
     }
 
     /**
@@ -167,18 +182,20 @@ class PresenceModel extends Model
      */
     public function getByEmploye(int $employeId, ?string $dateDebut = null, ?string $dateFin = null): array
     {
-        $builder = $this->where('employe_id', $employeId);
+        $builder = $this->selectWithEmployeIdentity()
+            ->where('presences.employe_id', $employeId);
 
         if ($dateDebut) {
-            $builder->where('date_pointage >=', $dateDebut);
+            $builder->where('DATE(presences.date_pointage) >=', $dateDebut);
         }
 
         if ($dateFin) {
-            $builder->where('date_pointage <=', $dateFin);
+            $builder->where('DATE(presences.date_pointage) <=', $dateFin);
         }
 
-        return $builder->orderBy('date_pointage', 'DESC')
-            ->findAll();
+        return $builder->orderBy('presences.date_pointage', 'DESC')
+            ->get()
+            ->getResultArray();
     }
 
     /**

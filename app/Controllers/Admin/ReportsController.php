@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controllers\Admin;
@@ -18,6 +19,10 @@ class ReportsController extends BaseController
     protected PresenceModel $presenceModel;
     protected CongeModel $congeModel;
     protected VisiteurModel $visiteurModel;
+    /**
+     * @var string[]|null
+     */
+    private ?array $employeeColumnsCache = null;
 
     public function initController(RequestInterface $request, HttpResponseInterface $response, LoggerInterface $logger): void
     {
@@ -90,7 +95,9 @@ class ReportsController extends BaseController
             return $this->exportCsv($type, $data);
         }
 
-        if (! class_exists(\Dompdf\Dompdf::class)) {
+        $dompdfClass = 'Dompdf\\Dompdf';
+
+        if (! class_exists($dompdfClass)) {
             return redirect()->back()->with('error', 'DOMPDF n est pas disponible sur cet environnement.');
         }
 
@@ -98,7 +105,7 @@ class ReportsController extends BaseController
         $html = view('admin/rapports/pdf/' . $type, $data);
 
         // Generate PDF with DOMPDF
-        $dompdf = new \Dompdf\Dompdf(['defaultFont' => 'DejaVu Sans']);
+        $dompdf = new $dompdfClass(['defaultFont' => 'DejaVu Sans']);
         $dompdf->loadHtml($html, 'UTF-8');
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
@@ -479,6 +486,7 @@ class ReportsController extends BaseController
         }
 
         $db = db_connect();
+        $dailySalaryExpr = $this->getDailySalaryExpression();
         $baseBuilder = $db->table('presences p')
             ->join('employes e', 'e.id = p.employe_id', 'left')
             ->where('DATE(p.date_pointage) >=', $start)
@@ -493,7 +501,7 @@ class ReportsController extends BaseController
                 "p.date_pointage, p.statut, p.retard_minutes,
                 e.id AS employe_id, e.matricule, e.prenom, e.nom,
                 COALESCE(NULLIF(e.departement, ''), 'Non renseigné') AS departement,
-                IFNULL(e.salaire_base, 0) AS salaire_base"
+                {$dailySalaryExpr} AS salaire_journalier_calc"
             )
             ->orderBy('p.date_pointage', 'ASC')
             ->orderBy('e.nom', 'ASC')
@@ -530,7 +538,7 @@ class ReportsController extends BaseController
             }
 
             $byEmployee[$employeeId]['jours_total']++;
-            $salaryPerDay = ((float) ($row['salaire_base'] ?? 0)) / 22;
+            $salaryPerDay = (float) ($row['salaire_journalier_calc'] ?? 0);
 
             if (($row['statut'] ?? '') === 'absent') {
                 $byEmployee[$employeeId]['jours_absence']++;
@@ -583,8 +591,8 @@ class ReportsController extends BaseController
             ->select("COUNT(*) AS total_pointages,
                 SUM(CASE WHEN p.statut = 'absent' THEN 1 ELSE 0 END) AS total_absences,
                 SUM(CASE WHEN p.statut = 'retard' THEN IFNULL(p.retard_minutes, 0) ELSE 0 END) AS total_retard_minutes,
-                SUM(CASE WHEN p.statut = 'absent' THEN IFNULL(e.salaire_base, 0) / 22 ELSE 0 END) AS cout_absences,
-                SUM(CASE WHEN p.statut = 'retard' THEN ((IFNULL(e.salaire_base, 0) / 22) / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retards")
+                SUM(CASE WHEN p.statut = 'absent' THEN {$dailySalaryExpr} ELSE 0 END) AS cout_absences,
+                SUM(CASE WHEN p.statut = 'retard' THEN ({$dailySalaryExpr} / 8) * (IFNULL(p.retard_minutes, 0) / 60) ELSE 0 END) AS cout_retards")
             ->get()
             ->getFirstRow('array') ?? [];
 
@@ -901,5 +909,44 @@ class ReportsController extends BaseController
             ->getResultArray();
 
         return array_values(array_map(static fn(array $row): string => (string) $row['departement'], $rows));
+    }
+
+    private function getDailySalaryExpression(): string
+    {
+        $columns = $this->getEmployeeColumns();
+        $hasDaily = in_array('salaire_journalier', $columns, true);
+        $hasMonthly = in_array('salaire_base', $columns, true);
+
+        if ($hasDaily && $hasMonthly) {
+            return 'COALESCE(e.salaire_journalier, e.salaire_base / 22, 0)';
+        }
+
+        if ($hasDaily) {
+            return 'IFNULL(e.salaire_journalier, 0)';
+        }
+
+        if ($hasMonthly) {
+            return 'IFNULL(e.salaire_base / 22, 0)';
+        }
+
+        return '0';
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getEmployeeColumns(): array
+    {
+        if ($this->employeeColumnsCache !== null) {
+            return $this->employeeColumnsCache;
+        }
+
+        try {
+            $this->employeeColumnsCache = db_connect()->getFieldNames('employes');
+        } catch (\Throwable) {
+            $this->employeeColumnsCache = [];
+        }
+
+        return $this->employeeColumnsCache;
     }
 }

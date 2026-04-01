@@ -127,9 +127,13 @@ $total = (int) ($pager['total'] ?? count($employes));
                                 <td><?= esc($employe['poste'] ?? '') ?></td>
                                 <td><span class="badge rounded-pill text-bg-light border"><?= esc($employe['departement'] ?? '') ?></span></td>
                                 <td>
-                                    <a href="mailto:<?= esc($employe['email'] ?? '') ?>" class="text-decoration-none">
-                                        <?= esc($employe['email'] ?? '') ?>
-                                    </a>
+                                    <?php if (!empty($employe['email'])): ?>
+                                        <a href="mailto:<?= esc($employe['email']) ?>" class="text-decoration-none">
+                                            <?= esc($employe['email']) ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <span class="text-muted">Non renseigne</span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <span class="badge rounded-pill <?= ($employe['statut'] ?? '') === 'actif' ? 'text-bg-success' : 'text-bg-danger' ?>">
@@ -186,21 +190,21 @@ $total = (int) ($pager['total'] ?? count($employes));
 </div>
 
 <script>
-function confirmDeactivate(id, name) {
-    if (confirm(`Etes-vous sur de vouloir desactiver l employe "${name}" ?`)) {
-        // Créer un formulaire temporaire pour POST
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `<?= site_url('admin/employees/') ?>${id}/deactivate`;
+    function confirmDeactivate(id, name) {
+        if (confirm(`Etes-vous sur de vouloir desactiver l employe "${name}" ?`)) {
+            // Créer un formulaire temporaire pour POST
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = `<?= site_url('admin/employees/') ?>${id}/deactivate`;
 
-        const csrfInput = document.createElement('input');
-        csrfInput.type = 'hidden';
-        csrfInput.name = '<?= csrf_token() ?>';
-        csrfInput.value = '<?= csrf_hash() ?>';
-        form.appendChild(csrfInput);
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '<?= csrf_token() ?>';
+            csrfInput.value = '<?= csrf_hash() ?>';
+            form.appendChild(csrfInput);
 
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
 </script>

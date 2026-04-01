@@ -27,11 +27,12 @@ class UtilisateurModel extends Model
         'token_expiration',
     ];
 
+    // Relaxed validation rules - used primarily for login (which provides all fields)
     protected $validationRules = [
-        'email'        => 'required|valid_email|max_length[255]',
-        'mot_de_passe' => 'required|string|max_length[255]',
-        'role'         => 'required|in_list[admin,employe,agent]',
-        'statut'       => 'required|in_list[actif,inactif]',
+        'email'        => 'permit_empty|valid_email|max_length[255]',
+        'mot_de_passe' => 'permit_empty|string|max_length[255]',
+        'role'         => 'permit_empty|in_list[admin,employe,agent]',
+        'statut'       => 'permit_empty|in_list[actif,inactif]',
     ];
 
     public function findByEmail(string $email): ?array
@@ -54,4 +55,3 @@ class UtilisateurModel extends Model
         return array_map(static fn (array $row): int => (int) $row['id'], $rows);
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Models;
@@ -17,109 +18,62 @@ class EmployeModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'utilisateur_id',
         'matricule',
         'nom',
         'prenom',
         'email',
         'telephone',
+        'telephone_1',
+        'telephone_2',
         'date_naissance',
+        'genre',
+        'nationalite',
+        'numero_cni',
         'date_embauche',
         'poste',
         'departement',
+        'type_contrat',
+        'date_fin_contrat',
+        'salaire_journalier',
         'salaire_base',
+        'heure_debut_travail',
+        'heure_fin_travail',
         'statut',
+        'date_desactivation',
         'pin_kiosque',
         'photo',
         'adresse',
         'ville',
         'code_postal',
-        'pays'
+        'pays',
     ];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 
-    protected array $casts = [];
+    protected array $casts = [
+        'salaire_journalier' => '?float',
+        'salaire_base' => '?float',
+    ];
     protected array $castHandlers = [];
 
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
+    // Dates - Use manual timestamps
+    protected $useTimestamps = false;
     protected $createdField  = 'date_creation';
     protected $updatedField  = 'date_modification';
 
-    // Validation
+    // Validation - rules for employee creation
     protected $validationRules = [
-        'matricule'     => 'required|is_unique[employes.matricule,id,{id}]',
-        'nom'           => 'required|alpha_space|min_length[2]|max_length[50]',
-        'prenom'        => 'required|alpha_space|min_length[2]|max_length[50]',
-        'email'         => 'required|valid_email|is_unique[employes.email,id,{id}]',
-        'telephone'     => 'permit_empty|regex_match[/^[0-9+\-\s()]+$/]',
-        'date_naissance' => 'required|valid_date',
+        'nom'           => 'required|alpha_space|min_length[2]|max_length[100]',
+        'prenom'        => 'required|alpha_space|min_length[2]|max_length[100]',
+        'email'         => 'permit_empty|valid_email|max_length[255]',
+        'telephone'     => 'permit_empty|max_length[20]',
+        'date_naissance' => 'permit_empty|valid_date',
         'date_embauche' => 'required|valid_date',
-        'poste'         => 'required|min_length[2]|max_length[100]',
-        'departement'   => 'required|min_length[2]|max_length[50]',
-        'salaire_base'  => 'required|numeric|greater_than[0]',
-        'statut'        => 'required|in_list[actif,inactif]',
-        'pin_kiosque'   => 'permit_empty|exact_length[4]|numeric',
-    ];
-
-    protected $validationMessages = [
-        'matricule' => [
-            'required'   => 'Le matricule est obligatoire.',
-            'is_unique'  => 'Ce matricule existe déjà.',
-        ],
-        'nom' => [
-            'required'   => 'Le nom est obligatoire.',
-            'alpha_space' => 'Le nom ne peut contenir que des lettres et espaces.',
-            'min_length' => 'Le nom doit contenir au moins 2 caractères.',
-            'max_length' => 'Le nom ne peut pas dépasser 50 caractères.',
-        ],
-        'prenom' => [
-            'required'   => 'Le prénom est obligatoire.',
-            'alpha_space' => 'Le prénom ne peut contenir que des lettres et espaces.',
-            'min_length' => 'Le prénom doit contenir au moins 2 caractères.',
-            'max_length' => 'Le prénom ne peut pas dépasser 50 caractères.',
-        ],
-        'email' => [
-            'required'    => 'L\'email est obligatoire.',
-            'valid_email' => 'L\'email n\'est pas valide.',
-            'is_unique'   => 'Cet email est déjà utilisé.',
-        ],
-        'telephone' => [
-            'regex_match' => 'Le numéro de téléphone n\'est pas valide.',
-        ],
-        'date_naissance' => [
-            'required'    => 'La date de naissance est obligatoire.',
-            'valid_date'  => 'La date de naissance n\'est pas valide.',
-        ],
-        'date_embauche' => [
-            'required'    => 'La date d\'embauche est obligatoire.',
-            'valid_date'  => 'La date d\'embauche n\'est pas valide.',
-        ],
-        'poste' => [
-            'required'   => 'Le poste est obligatoire.',
-            'min_length' => 'Le poste doit contenir au moins 2 caractères.',
-            'max_length' => 'Le poste ne peut pas dépasser 100 caractères.',
-        ],
-        'departement' => [
-            'required'   => 'Le département est obligatoire.',
-            'min_length' => 'Le département doit contenir au moins 2 caractères.',
-            'max_length' => 'Le département ne peut pas dépasser 50 caractères.',
-        ],
-        'salaire_base' => [
-            'required'      => 'Le salaire de base est obligatoire.',
-            'numeric'       => 'Le salaire doit être un nombre.',
-            'greater_than'  => 'Le salaire doit être positif.',
-        ],
-        'statut' => [
-            'required' => 'Le statut est obligatoire.',
-            'in_list'  => 'Le statut doit être actif ou inactif.',
-        ],
-        'pin_kiosque' => [
-            'exact_length' => 'Le PIN doit contenir exactement 4 chiffres.',
-            'numeric'      => 'Le PIN ne peut contenir que des chiffres.',
-        ],
+        'poste'         => 'permit_empty|max_length[150]',
+        'departement'   => 'permit_empty|max_length[100]',
+        'statut'        => 'in_list[actif,inactif]',
     ];
 
     protected $skipValidation       = false;
@@ -137,17 +91,72 @@ class EmployeModel extends Model
     protected $afterDelete    = [];
 
     /**
+     * @var string[]|null
+     */
+    private ?array $tableFieldsCache = null;
+
+    protected function initialize(): void
+    {
+        parent::initialize();
+
+        // Keep only columns that actually exist in the current DB schema.
+        $existing = $this->getTableFields();
+        if ($existing !== []) {
+            $this->allowedFields = array_values(array_filter(
+                $this->allowedFields,
+                static fn(string $field): bool => in_array($field, $existing, true)
+            ));
+        }
+    }
+
+    /**
      * Génère un matricule unique
      */
     protected function generateMatricule(array $data): array
     {
         if (empty($data['data']['matricule'])) {
             $year = date('Y');
-            $count = $this->where('YEAR(date_creation)', $year)->countAllResults() + 1;
-            $data['data']['matricule'] = sprintf('EMP%s%04d', $year, $count);
+            $prefix = sprintf('EMP-%s-', $year);
+
+            // Build the sequence directly from table rows to avoid model state side effects.
+            $rows = $this->db->table($this->table)
+                ->select('matricule')
+                ->like('matricule', $prefix, 'after')
+                ->get()
+                ->getResultArray();
+
+            $maxSequence = 0;
+            foreach ($rows as $row) {
+                $matricule = (string) ($row['matricule'] ?? '');
+                if (!str_starts_with($matricule, $prefix)) {
+                    continue;
+                }
+
+                $sequence = (int) substr($matricule, strlen($prefix));
+                if ($sequence > $maxSequence) {
+                    $maxSequence = $sequence;
+                }
+            }
+
+            $sequence = $maxSequence + 1;
+            $candidate = sprintf('%s%04d', $prefix, $sequence);
+
+            while ($this->matriculeExists($candidate)) {
+                $sequence++;
+                $candidate = sprintf('%s%04d', $prefix, $sequence);
+            }
+
+            $data['data']['matricule'] = $candidate;
         }
 
         return $data;
+    }
+
+    private function matriculeExists(string $matricule): bool
+    {
+        return $this->db->table($this->table)
+            ->where('matricule', $matricule)
+            ->countAllResults() > 0;
     }
 
     /**
@@ -156,15 +165,30 @@ class EmployeModel extends Model
     public function search(array $filters = []): array
     {
         $builder = $this->builder();
+        $hasEmail = $this->hasColumn('email');
+        $hasTelephone = $this->hasColumn('telephone');
+        $hasTelephone1 = $this->hasColumn('telephone_1');
 
         if (!empty($filters['search'])) {
             $search = $filters['search'];
-            $builder->groupStart()
-                ->like('nom', $search)
+            $builder->groupStart();
+            $builder->like('nom', $search)
                 ->orLike('prenom', $search)
-                ->orLike('matricule', $search)
-                ->orLike('email', $search)
-                ->groupEnd();
+                ->orLike('matricule', $search);
+
+            if ($hasEmail) {
+                $builder->orLike('email', $search);
+            }
+
+            if ($hasTelephone) {
+                $builder->orLike('telephone', $search);
+            }
+
+            if ($hasTelephone1) {
+                $builder->orLike('telephone_1', $search);
+            }
+
+            $builder->groupEnd();
         }
 
         if (!empty($filters['departement'])) {
@@ -188,7 +212,7 @@ class EmployeModel extends Model
     public function getAnciennete(int $employeId): float
     {
         $employe = $this->find($employeId);
-        if (!$employe) {
+        if (!$employe || empty($employe['date_embauche'])) {
             return 0;
         }
 
@@ -212,6 +236,40 @@ class EmployeModel extends Model
      */
     public function updatePin(int $employeId, string $pin): bool
     {
-        return $this->update($employeId, ['pin_kiosque' => $pin]);
+        return $this->update($employeId, ['pin_kiosque' => password_hash($pin, PASSWORD_BCRYPT, ['cost' => 12])]);
+    }
+
+    /**
+     * Récupère la liste des employés actifs
+     */
+    public function getActiveList(): array
+    {
+        return $this->where('statut', 'actif')
+            ->orderBy('nom', 'ASC')
+            ->orderBy('prenom', 'ASC')
+            ->findAll();
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getTableFields(): array
+    {
+        if ($this->tableFieldsCache !== null) {
+            return $this->tableFieldsCache;
+        }
+
+        try {
+            $this->tableFieldsCache = $this->db->getFieldNames($this->table);
+        } catch (\Throwable) {
+            $this->tableFieldsCache = [];
+        }
+
+        return $this->tableFieldsCache;
+    }
+
+    private function hasColumn(string $column): bool
+    {
+        return in_array($column, $this->getTableFields(), true);
     }
 }
